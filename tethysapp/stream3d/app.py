@@ -8,7 +8,7 @@ class Stream3D(TethysAppBase):
 
     name = 'Stream3D'
     index = 'stream3d:home'
-    icon = 'stream3d/images/icon.gif'
+    icon = 'stream3d/images/streammeLog.jpeg'
     package = 'stream3d'
     root_url = 'stream3d'
     color = '#2c3e50'
@@ -28,6 +28,16 @@ class Stream3D(TethysAppBase):
                 name='home',
                 url='stream3d',
                 controller='stream3d.controllers.home'
+            ),
+            UrlMap(
+                name='instructions',
+                url='stream3d/instructions',
+                controller='stream3d.controllers.instructions'
+            ),
+            UrlMap(
+                name='map',
+                url='stream3d/map',
+                controller='stream3d.controllers.map'
             ),
         )
 

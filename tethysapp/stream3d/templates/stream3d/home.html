@@ -7,9 +7,42 @@
   </div>
 {% endblock %}
 
-{% block app_content %}
+{% block app_navigation_items %}
+{% url 'stream3d:home' as home_url %}
+{% url 'stream3d:instructions' as instructions_url %}
+{% url 'stream3d:map' as map_url %}
+<li class="{% if request.path == home_url %}active{% endif %}"><a href="{{ home_url }}">Info</a></li>
+<li class="{% if request.path == instructions_url %}active{% endif %}"><a href="{{ instructions_url }}">Instructions</a></li>
+<li class="{% if request.path == map_url %}active{% endif %}"><a href="{{ map_url }}">Get Started</a></li>
 
- <div id="cesiumContainer"></div>
+{% endblock %}
+
+{% block app_content %}
+</<div id="instructionWrapper">
+    <h1>Stream3D</h1>
+    <p> This is an app that is designed to use hydrologycal data in oder to do forecast about the different streams around the world. The data ythat can be displayed
+    for each one of the reaches of a river are Forecast, historical data, and flow direction curve. This data is retrieve in the form of a graph from the GEOGLOWS Streamflow
+    Services API. The API retrieves the data, and a javascript library was created to customized this three graphs, so it will be easier to put the three different graphs in popup
+   or any other container inside a web application. In addition, data from the World Resources Institute (WRI) is retrieve as a Hydroshare reosurce, so it can be easily acccessed as a service. The name of
+   this data set is" Aqueduct Global Flood Risk Maps", and it  provide current and future river flood risk estimates in urban damage, affected GDP, and affected population by country, river basin, and state.
+   The datasets in these maps include current and future river flood risk estimates in urban damage, affected GDP, and affected population by country, river basin, and state. Therefore, the Stream3D applciation
+   provides data from the GEOGLOWS Streamflow Services API and from the WRI foundation to retrieve forecast and also data about the influence of a flood in urban areas, population and GDP</p>
+   <h3> Component of the Stream3D</h3>
+   <ul>
+     <li>GEOGLOWS Streamflow Services API</li>
+     <p> The data used from the API will be used to retrieve forecast, historical, and flow curve data, and it will be proccessed into a CDN javascript library, so it will
+     be easy to jsut graph the current forecast of a given stream if the id of the stream reach is given. Three graphs will be given for forecast, historical, and flow rate curve, respectively
+     as a result, implementations for graphs a pie chart containing a distribution of the different return periods in the reach of teh stream can be also created for future work.
+   </p>
+     <li> Aqueduct Global Flood Risk Maps WRI Data Set</li>
+     <p>
+       The data of the WRI contains two different values: one of the current scenario and another for future projections. Each one of these scenarios gives information about the
+       urban damage, affected GDP, and affectefd population taking into account two important factors: socio-economic change and climate change. In other words, the dataset helps to Visualize
+       the affected urban area, GDP, and population, and it also gives the percentage of the damage that is part of socio-econmic or climate change factors.
+     </p>
+   </ul>
+</div>
+
 {% endblock %}
 
 {# Use the after_app_content block for modals #}
@@ -37,9 +70,15 @@
 {% endblock %}
 
 {% block app_actions %}
-  {% gizmo save_button %}
-  {% gizmo edit_button %}
-  {% gizmo remove_button %}
-  {% gizmo previous_button %}
-  {% gizmo next_button %}
+
+{% endblock %}
+
+{% block styles %}
+  {{ block.super }}
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+
+
 {% endblock %}
