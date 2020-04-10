@@ -327,8 +327,8 @@ function defineMapService (divContainer,basemap,globalLayer){
          //   console.log("hola");
          //   layer.bindPopup(feature)
          // }
-         
-         // map.addLayer(geojsonDataFloods);
+
+         map.addLayer(geojsonDataFloods);
 
        }
        // loadGeoJson
