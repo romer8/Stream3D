@@ -25,11 +25,28 @@
 
 {% block app_content %}
 
-<div>
-  <button type="button" id="startSlider">Start Animation!</button>
-  <button type="button" id="stopSlider">Stop Animation!</button>
-</div>
-<div id='map'></div>
+
+<!-- <div id="map_graphs_container"> -->
+  <div id='map'></div>
+  <div id="flood_risk">
+    <h2>Flood Risk Options</h2>
+    <div>
+      <button type="button" id="startSlider">Start Animation!</button>
+      <button type="button" id="stopSlider">Stop Animation!</button>
+    </div>
+    <div id="affectedMoney">
+      <div id="plots"> </div>
+      <div id="dataFlood">
+        <select class="selectpicker" data-style = "btn-primary">
+          <option>Scenario A</option>
+          <option> Scenario B</option>
+          <option> Scenario C</option>
+        </select>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->
+
 
 {% endblock %}
 

@@ -1,5 +1,7 @@
 // THIS IS  THE HELPER MODULE FOR THE HYDROVIEWER//
 var geoLayer
+var jsonCountries = getAllArray();
+var returnPeriodsProbs = getReturnPeriods();
 // var geoJsonLayer=L.geoJson({}, {style: function(feature){
 //
 //     var fillColor=backgroundColor;
@@ -283,58 +285,91 @@ function defineMapService (divContainer,basemap,globalLayer){
         })
 
     });
-    var urlFloods= "https://geoserver.hydroshare.org/geoserver/HS-895d19627ff84f69ad15619bb1d3da02/ows";
-
-    var defaultParameters = {
-        service: 'WFS',
-        version: '1.0.0',
-        request: 'getFeature',
-        typeName: 'HS-895d19627ff84f69ad15619bb1d3da02:aqueduct_global_flood_risk_data_by_country_20150304',
-        // featureID: "aqueduct_global_flood_risk_data_by_country_20150304.1",
-        maxFeatures: 253,
-        outputFormat: 'application/json'
-    };
-    var customParams = {
-      bbox: map.getBounds().toBBoxString(),
-    };
-    var parameters = L.Util.extend(defaultParameters, customParams);
-    var geojsonDataFloods = new L.GeoJSON();
-
-    $.ajax({
-       url: urlFloods + L.Util.getParamString(parameters),
-       datatype: 'json',
-       jsonCallback: 'getJson',
-       success: function(data){
-         console.log(data);
-         var geojsonDataFloods = new L.GeoJSON(data,{
-           style : function(feature){
-              var fillColor = "#006837";
-              return { color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .6 };
-           },
-           onEachFeature : function(feature, layer){
-             console.log("hola");
-             layer.bindPopup(feature.properties["unit_name"])
-           }
-
-         });
-
-         // geojsonDataFloods.addData(data);
-         // geojsonDataFloods.style = function(feature){
-         //    var fillColor = "#006837";
-         //    return { color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .6 };
-         // },
-         // geojsonDataFloods.onEachFeature = function(feature, layer){
-         //   console.log("hola");
-         //   layer.bindPopup(feature)
-         // }
-
-         map.addLayer(geojsonDataFloods);
-
-       }
-       // loadGeoJson
-     });
+    // var urlFloods= "https://geoserver.hydroshare.org/geoserver/HS-895d19627ff84f69ad15619bb1d3da02/ows";
+    //
+    // var defaultParameters = {
+    //     service: 'WFS',
+    //     version: '1.0.0',
+    //     request: 'getFeature',
+    //     typeName: 'HS-895d19627ff84f69ad15619bb1d3da02:aqueduct_global_flood_risk_data_by_country_20150304',
+    //     // featureID: "aqueduct_global_flood_risk_data_by_country_20150304.1",
+    //     maxFeatures: 253,
+    //     outputFormat: 'application/json'
+    // };
+    // var customParams = {
+    //   bbox: map.getBounds().toBBoxString(),
+    // };
+    // var parameters = L.Util.extend(defaultParameters, customParams);
+    // var geojsonDataFloods = new L.GeoJSON();
+    //
+    // $.ajax({
+    //    url: urlFloods + L.Util.getParamString(parameters),
+    //    datatype: 'json',
+    //    jsonCallback: 'getJson',
+    //    success: function(data){
+    //      console.log(data);
+    //      var geojsonDataFloods = new L.GeoJSON(data,{
+    //        style : function(feature){
+    //           var fillColor = "#006837";
+    //           return { color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .6 };
+    //        },
+    //        onEachFeature : function(feature, layer){
+    //          console.log("hola");
+    //          layer.bindPopup(feature.properties["unit_name"])
+    //        }
+    //
+    //      });
+    //
+    //
+    //      // map.addLayer(geojsonDataFloods);
+    //
+    //    }
+    //    // loadGeoJson
+    //  });
 
 };
+function xmlToJson(xml) {
+    // Create the return object
+    var obj = {};
+
+    // console.log(xml.nodeType, xml.nodeName );
+
+    if (xml.nodeType == 1) { // element
+        // do attributes
+        if (xml.attributes.length > 0) {
+        obj["@attributes"] = {};
+            for (var j = 0; j < xml.attributes.length; j++) {
+                var attribute = xml.attributes.item(j);
+                obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+            }
+        }
+    }
+    else if (xml.nodeType == 3 ||
+             xml.nodeType == 4) { // text and cdata section
+        obj = xml.nodeValue
+    }
+
+    // do children
+    if (xml.hasChildNodes()) {
+        for(var i = 0; i < xml.childNodes.length; i++) {
+            var item = xml.childNodes.item(i);
+            var nodeName = item.nodeName;
+            if (typeof(obj[nodeName]) == "undefined") {
+                obj[nodeName] = xmlToJson(item);
+            } else {
+                if (typeof(obj[nodeName].length) == "undefined") {
+                    var old = obj[nodeName];
+                    obj[nodeName] = [];
+                    obj[nodeName].push(old);
+                }
+                if (typeof(obj[nodeName]) === 'object') {
+                    obj[nodeName].push(xmlToJson(item));
+                }
+            }
+        }
+    }
+    return obj;
+}
 
 function chooseCountry (country, backgroundColor){
     var data=JSON.parse(JSON.stringify(countriesGeoJson));
@@ -343,8 +378,10 @@ function chooseCountry (country, backgroundColor){
     // console.log(county);
     if(country!="global"){
 
-      // $.getJSON("public/js/countries.geojson",function(data){
-          // add GeoJSON layer to the map once the file is loaded
+      // url:"https://geoserver.hydroshare.org/geoserver/HS-895d19627ff84f69ad15619bb1d3da02/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=HS-895d19627ff84f69ad15619bb1d3da02:aqueduct_global_flood_risk_data_by_country_20150304&featureID=aqueduct_global_flood_risk_data_by_country_20150304.1&outputFormat=application/json",
+
+
+
         console.log("Printing the GeoJson File beginning function");
         console.log(data);
         // var country=data.features[22];
@@ -431,6 +468,52 @@ function chooseCountry (country, backgroundColor){
           console.log("priting my zoom");
           console.log(map.getZoom());
           data=JSON.parse(JSON.stringify(countriesGeoJson));
+          console.log(jsonCountries);
+          console.log(countryD);
+          // var indexJsonCountries = jsonCountries.findIndex(x = > x == countryD["properties"]['name'] );
+          // console.log(indexJsonCountries);
+          if(jsonCountries.includes(country) ){
+            var indexJsonCountries = (jsonCountries.indexOf(country) + 1).toString();
+            console.log(jsonCountries.indexOf(country));
+            var urlFloodsBase= "https://geoserver.hydroshare.org/geoserver/HS-895d19627ff84f69ad15619bb1d3da02/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=HS-895d19627ff84f69ad15619bb1d3da02:aqueduct_global_flood_risk_data_by_country_20150304";
+            var featureIDBase= "&featureID=aqueduct_global_flood_risk_data_by_country_20150304." + indexJsonCountries;
+            console.log(featureIDBase);
+            var formatoUrl = "&outputFormat=application/json"
+            var urlRetrieveGeoJSonGeoserver = urlFloodsBase + featureIDBase + formatoUrl;
+            $.ajax({
+               // url: urlFloods + L.Util.getParamString(parameters),
+               // url:"https://geoserver.hydroshare.org/geoserver/HS-895d19627ff84f69ad15619bb1d3da02/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=HS-895d19627ff84f69ad15619bb1d3da02:aqueduct_global_flood_risk_data_by_country_20150304&featureID=aqueduct_global_flood_risk_data_by_country_20150304.11&outputFormat=application/json",
+               url: urlRetrieveGeoJSonGeoserver,
+               datatype: 'json',
+               jsonCallback: 'getJson',
+               success: function(data2){
+                 let dataG = data2.features[0].properties;
+                 console.log(data2.features[0].properties);
+                 let g10_bh = makeObject("G10_bh",dataG);
+                 let g30_24 = makeObject("G30_24",dataG);
+                 let g30_28 = makeObject("G30_28",dataG);
+                 let g30_3h = makeObject("G30_3h",dataG);
+                 let g30_2h = makeObject("G30_2h",dataG);
+                 let g30_b4 = makeObject("G30_b4",dataG);
+                 let g30_b8 = makeObject("G30_b8",dataG);
+
+                 let yValuesG10 = Object.values(g10_bh);
+                 let xValuesRP = Object.values(returnPeriodsProbs);
+                 console.log(g10_bh);
+                 var trace1 = {
+                    x: xValuesRP,
+                    y: yValuesG10,
+                    fill:'tonexty',
+                    type: 'scatter'
+                  };
+
+                  var data = [trace1];
+
+                  Plotly.newPlot('plots', data);
+               }
+             })
+
+          }
 
     }
 

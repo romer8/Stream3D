@@ -5,13 +5,67 @@ body {
   padding:0;
   font: 16px Arial;
 }
+#app-content-wrapper #app-content{
+  height: 100%;
+  /* when the graph is on */
+}
+#inner-app-content{
+  width: 100%;
+  display:flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 0 0 0 0;
+  /* position: fixed; */
+}
+
+/* #map_graphs_container{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height:100%;
+} */
+#flood_risk{
+  flex:1 1 30%;
+  width: 100%;
+  height: 100%;
+  order: 2;
+  display: flex;
+  flex-direction: row;
+}
+#affectedMoney{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  order:2;
+  width: 100%;
+  height: 100%;
+
+}
+#plots{
+  flex:1 1 50%;
+  width: 100%;
+  height :100%;
+  order:1;
+}
+#dataFlood{
+  width: 100%;
+  height: 100%;
+  order:2;
+  flex: 1 1 50%;
+}
 #map {
-  position: absolute;
-  top:110px;
+  flex: 1 1 70%;
+  /* position: absolute; */
+  /* top:110px; */
   bottom:0;
   right:0;
   left:0;
   cursor: pointer;
+  order:1;
+  overflow-y: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 #slider {position: absolute; bottom: 50px; left: 50px; width: 300px}
