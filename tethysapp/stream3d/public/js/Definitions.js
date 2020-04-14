@@ -489,27 +489,50 @@ function chooseCountry (country, backgroundColor){
                success: function(data2){
                  let dataG = data2.features[0].properties;
                  console.log(data2.features[0].properties);
-                 let g10_bh = makeObject("G10_bh",dataG);
-                 let g30_24 = makeObject("G30_24",dataG);
-                 let g30_28 = makeObject("G30_28",dataG);
-                 let g30_3h = makeObject("G30_3h",dataG);
-                 let g30_2h = makeObject("G30_2h",dataG);
-                 let g30_b4 = makeObject("G30_b4",dataG);
-                 let g30_b8 = makeObject("G30_b8",dataG);
+                 let g10_bh = makeArray("G10_bh",dataG);
+                 let g30_24 = makeArray("G30_24",dataG);
+                 let g30_28 = makeArray("G30_28",dataG);
+                 let g30_3h = makeArray("G30_3h",dataG);
+                 let g30_2h = makeArray("G30_2h",dataG);
+                 let g30_b4 = makeArray("G30_b4",dataG);
+                 let g30_b8 = makeArray("G30_b8",dataG);
 
-                 let yValuesG10 = Object.values(g10_bh);
+                 // let yValuesG10 = Object.values(g10_bh);
                  let xValuesRP = Object.values(returnPeriodsProbs);
+                 console.log(xValuesRP);
                  console.log(g10_bh);
                  var trace1 = {
-                    x: xValuesRP,
-                    y: yValuesG10,
+                    x: xValuesRP.reverse(),
+                    y: g10_bh.reverse(),
                     fill:'tonexty',
                     type: 'scatter'
                   };
 
-                  var data = [trace1];
+                var data = [trace1];
 
-                  Plotly.newPlot('plots', data);
+                Plotly.newPlot('plots', data);
+                var ctx = document.getElementById('plots').getContext('2d');
+                var chart = new Chart(ctx, {
+                    // The type of chart we want to create
+                    type: 'line',
+
+                    // The data for our dataset
+                    data: {
+                        labels: xValuesRP,
+                        datasets: [{
+                            label: 'Risk curve',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: g10_bh
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+
+
+                    }
+                });
                }
              })
 

@@ -33,16 +33,30 @@
     <div>
       <button type="button" id="startSlider">Start Animation!</button>
       <button type="button" id="stopSlider">Stop Animation!</button>
+      <select class="selectpicker" data-style = "btn-primary">
+        <option>Scenario A</option>
+        <option> Scenario B</option>
+        <option> Scenario C</option>
+      </select>
+    </div>
+    <div id="dataFlood">
+      <p>Protection Return Periods</p>
+      <input
+        type="range"
+        min="0"
+        max="80"
+        step="10"
+        value="0"
+        data-orientation="horizontal"
+      >
+      <output>2-year Protection</output>
+      <!-- <div id="plots"> </div> -->
+      <canvas id="plots"></canvas>
+
     </div>
     <div id="affectedMoney">
-      <div id="plots"> </div>
-      <div id="dataFlood">
-        <select class="selectpicker" data-style = "btn-primary">
-          <option>Scenario A</option>
-          <option> Scenario B</option>
-          <option> Scenario C</option>
-        </select>
-      </div>
+      <!-- <div id="plots"> </div> -->
+
     </div>
   </div>
 <!-- </div> -->

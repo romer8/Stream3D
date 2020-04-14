@@ -276,18 +276,58 @@ function getReturnPeriods(){
   return returnPeriods
 }
 // Helper function for the countries //
-function makeObject(ini, objectRequest){
-  let keysObject = Object.keys(objectRequest);
-  let newArrayKeys = [];
-  keysObject.forEach(function(e){
-    if(e.includes(ini)){
-      newArrayKeys.push(e);
-    }
+function makeArray(ini, objectRequest){
+
+  let finalObject = createObject2(ini);
+  finalObjectArray = Object.keys(finalObject);
+  // console.log(finalObjectArray);
+  let arrayValues=[];
+
+  finalObjectArray.forEach(function(e){
+    arrayValues.push(objectRequest[e])
+    // finalObject[e] = objectRequest[e];
   })
-  let finalObject = {};
-  newArrayKeys.forEach(function(e){
-    finalObject[e] = objectRequest[e];
-  })
-  return finalObject;
+  // console.log(finalObject);
+  console.log(arrayValues);
+  return arrayValues;
 
 }
+
+function createObject2 (ini){
+  let ob = {};
+  ob[`${ini}_2`] = 0;
+  ob[`${ini}_5`] = 0;
+  ob[`${ini}_10`] = 0;
+  ob[`${ini}_25`] = 0;
+  ob[`${ini}_50`] = 0;
+  ob[`${ini}_100`] = 0;
+  ob[`${ini}_250`] = 0;
+  ob[`${ini}_500`] = 0;
+  ob[`${ini}_1T`] = 0;
+
+  return ob;
+}
+let arrayTrans = {
+  "0": "2 year Protection",
+  "10": "5 year Protection",
+  "20": "10 year Protection",
+  "30": "25 year Protection",
+  "40": "50 year Protection",
+  "50": "100 year Protection",
+  "60": "250 year Protection",
+  "70": "500 year Protection",
+  "80": "1000 year Protection",
+}
+
+
+//slider Initialization and change in the output//
+var elements = document.getElementsByTagName('output')[0];
+console.log(elements);
+var sliderUI = $('input[type="range"]')[0];
+sliderUI.addEventListener("change", function(e){
+  console.log(e.target.value);
+  let valSLider = e.target.value.toString();
+  let newVal = arrayTrans[valSLider];
+  console.log(newVal);
+  elements.innerHTML = newVal;
+})
