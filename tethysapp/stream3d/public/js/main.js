@@ -188,6 +188,7 @@ sliderUI.addEventListener("change", function(e){
        let g30_2h = makeArray("G30_2h",dataG);
        let g30_b4 = makeArray("G30_b4",dataG);
        let g30_b8 = makeArray("G30_b8",dataG);
+       let g30_38 = makeArray("G30_38",dataG);
 
        // let yValuesG10 = Object.values(g10_bh);
        let xValuesRP = Object.values(returnPeriodsProbs);
@@ -198,6 +199,7 @@ sliderUI.addEventListener("change", function(e){
        let splitG30_2h = splitArrays(g30_2h,e.target.value);
        let splitG30_b4 = splitArrays(g30_b4,e.target.value);
        let splitG30_b8 = splitArrays(g30_b8,e.target.value);
+       let splitG30_38 = splitArrays(g30_38,e.target.value);
 
        let splitXvaluesRP = splitArrays(xValuesRP,e.target.value);
 
@@ -221,6 +223,8 @@ sliderUI.addEventListener("change", function(e){
        let secondIntegration30_b4 = integrationWhole(splitXvaluesRP['second'],splitG30_b4['second']);
        let firstIntegration30_b8 = integrationWhole(splitXvaluesRP['first'],splitG30_b8['first']);
        let secondIntegration30_b8 = integrationWhole(splitXvaluesRP['second'],splitG30_b8['second']);
+       let firstIntegration30_38 = integrationWhole(splitXvaluesRP['first'],splitG30_38['first']);
+       let secondIntegration30_38 = integrationWhole(splitXvaluesRP['second'],splitG30_38['second']);
 
        console.log("this is the xurrent");
        console.log(secondIntegration);
@@ -234,28 +238,41 @@ sliderUI.addEventListener("change", function(e){
        annualDamageA.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
        annualAvoidedDamageA.innerHTML = `$ ${ abbreviateNumber(firstIntegration,2)}`;
 
+
+       //MAKING SLIDE A
        currentAnualExpectedA.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
-
-
        let increaseSocioA = makesLessThanZero(secondIntegration30_2h -secondIntegration);
        let increaseClimateA = makesLessThanZero(secondIntegration30_b4 -secondIntegration);
        let totalHypoA = secondIntegration + increaseSocioA + increaseClimateA;
-
-       let waterFallArrayA = [secondIntegration, increaseSocioA, increaseClimateA,totalHypoA ];
-
-
        socioIncreaseA.innerHTML = `$ ${ abbreviateNumber(increaseSocioA,2)}`;
        climateChangeA.innerHTML = `$ ${ abbreviateNumber(increaseClimateA,2)}`;
        f2030IncreaseA.innerHTML = `$ ${ abbreviateNumber(secondIntegration30_24,2)}`;
+       let waterFallArrayA = [secondIntegration, increaseSocioA, increaseClimateA,totalHypoA ];
+       makeWaterFallChart(waterFallArrayA, "ModelGraphA");
 
+
+       // MAKING SLIDE B
        currentAnualExpectedB.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+       let increaseSocioB = makesLessThanZero(secondIntegration30_2h -secondIntegration);
+       let increaseClimateB = makesLessThanZero(secondIntegration30_b8 -secondIntegration);
+       let totalHypoB = secondIntegration + increaseSocioB + increaseClimateB;
+       socioIncreaseB.innerHTML = `$ ${ abbreviateNumber(increaseSocioB,2)}`;
+       climateChangeB.innerHTML = `$ ${ abbreviateNumber(increaseClimateB,2)}`;
+       f2030IncreaseB.innerHTML = `$ ${ abbreviateNumber(secondIntegration30_28,2)}`;
+       let waterFallArrayB = [secondIntegration, increaseSocioB, increaseClimateB,totalHypoB ];
+       makeWaterFallChart(waterFallArrayB, "ModelGraphB");
+
+       //MAKING SLIDE C
        currentAnualExpectedC.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+       let increaseSocioC = makesLessThanZero(secondIntegration30_3h -secondIntegration);
+       let increaseClimateC = makesLessThanZero(secondIntegration30_b8 -secondIntegration);
+       let totalHypoC = secondIntegration + increaseSocioC + increaseClimateC;
+       socioIncreaseC.innerHTML = `$ ${ abbreviateNumber(increaseSocioC,2)}`;
+       climateChangeC.innerHTML = `$ ${ abbreviateNumber(increaseClimateC,2)}`;
+       f2030IncreaseC.innerHTML = `$ ${ abbreviateNumber(secondIntegration30_38,2)}`;
 
-
-       console.log(firstIntegration);
-
-       console.log(secondIntegration);
-       makeWaterFallChart(waterFallArrayA);
+       let waterFallArrayC = [secondIntegration, increaseSocioC, increaseClimateC,totalHypoC ];
+       makeWaterFallChart(waterFallArrayC, "ModelGraphC");
      }
 
    })

@@ -598,7 +598,7 @@ function abbreviateNumber(number, decPlaces) {
 }
 
 //WATERFALL PLOT//
-function makeWaterFallChart(arr){
+function makeWaterFallChart(arr, divElementString){
   var data = [
           {
               name: "2018",
@@ -653,7 +653,7 @@ function makeWaterFallChart(arr){
             pad: 2
           },
       }
-  Plotly.newPlot('ModelGraphA', data, layout);
+  Plotly.newPlot(divElementString, data, layout);
 
 
 }
