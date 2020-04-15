@@ -319,15 +319,352 @@ let arrayTrans = {
   "80": "1000 year Protection",
 }
 
+function getArrayTrans(){
+  return arrayTrans;
+}
 
-//slider Initialization and change in the output//
-var elements = document.getElementsByTagName('output')[0];
-console.log(elements);
-var sliderUI = $('input[type="range"]')[0];
-sliderUI.addEventListener("change", function(e){
-  console.log(e.target.value);
-  let valSLider = e.target.value.toString();
-  let newVal = arrayTrans[valSLider];
-  console.log(newVal);
-  elements.innerHTML = newVal;
-})
+// //slider Initialization and change in the output//
+// var elements = document.getElementsByTagName('output')[0];
+// console.log(elements);
+// var sliderUI = $('input[type="range"]')[0];
+// sliderUI.addEventListener("change", function(e){
+//   console.log(e.target.value);
+//   let valSLider = e.target.value.toString();
+//   let newVal = arrayTrans[valSLider];
+//   console.log(newVal);
+//   elements.innerHTML = newVal;
+//   // let objtValuesSplit = splitArrays(g10_bh,e.target.value);
+//   // let objReturnSplit = splitArrays(xValuesRP , e.target.value);
+//
+// })
+
+// change the plot //
+function splitArrays(arr, val){
+  let first =[];
+  let second = [];
+  let finalOb = {};
+  if(val ==0){
+    first.push(arr[0]);
+    second.push(arr[0]);
+    arr.forEach(function(e){
+      if(!first.includes(e)){
+        second.push(e);
+      }
+    })
+  }
+  if(val ==10){
+    first.push(arr[0]);
+    first.push(arr[1]);
+    second.push(arr[1]);
+    arr.forEach(function(e){
+      if(!first.includes(e)){
+        second.push(e);
+      }
+    })
+  }
+  if(val ==20){
+    first.push(arr[0]);
+    first.push(arr[1]);
+    first.push(arr[2]);
+    second.push(arr[2]);
+
+    arr.forEach(function(e){
+      if(!first.includes(e)){
+        second.push(e);
+      }
+    })
+  }
+  if(val ==30){
+    first.push(arr[0]);
+    first.push(arr[1]);
+    first.push(arr[2]);
+    first.push(arr[3]);
+    second.push(arr[3]);
+
+    arr.forEach(function(e){
+      if(!first.includes(e)){
+        second.push(e);
+      }
+    })
+
+  }
+  if(val ==40){
+    first.push(arr[0]);
+    first.push(arr[1]);
+    first.push(arr[2]);
+    first.push(arr[3]);
+    first.push(arr[4]);
+    second.push(arr[4]);
+
+    arr.forEach(function(e){
+      if(!first.includes(e)){
+        second.push(e);
+      }
+    })
+  }
+  if(val ==50){
+    first.push(arr[0]);
+    first.push(arr[1]);
+    first.push(arr[2]);
+    first.push(arr[3]);
+    first.push(arr[4]);
+    first.push(arr[5]);
+    second.push(arr[5]);
+
+    arr.forEach(function(e){
+      if(!first.includes(e)){
+        second.push(e);
+      }
+    })
+  }
+  if(val ==60){
+    first.push(arr[0]);
+    first.push(arr[1]);
+    first.push(arr[2]);
+    first.push(arr[3]);
+    first.push(arr[4]);
+    first.push(arr[5]);
+    first.push(arr[6]);
+    second.push(arr[6]);
+
+    arr.forEach(function(e){
+      if(!first.includes(e)){
+        second.push(e);
+      }
+    })
+  }
+  if(val ==70){
+    first.push(arr[0]);
+    first.push(arr[1]);
+    first.push(arr[2]);
+    first.push(arr[3]);
+    first.push(arr[4]);
+    first.push(arr[5]);
+    first.push(arr[6]);
+    first.push(arr[7]);
+    second.push(arr[7]);
+
+    arr.forEach(function(e){
+      if(!first.includes(e)){
+        second.push(e);
+      }
+    })
+
+  }
+  if(val ==80){
+    first.push(arr[0]);
+    first.push(arr[1]);
+    first.push(arr[2]);
+    first.push(arr[3]);
+    first.push(arr[4]);
+    first.push(arr[5]);
+    first.push(arr[6]);
+    first.push(arr[7]);
+    first.push(arr[8]);
+    second.push(arr[8]);
+
+    arr.forEach(function(e){
+      if(!first.includes(e)){
+        second.push(e);
+      }
+    })
+  }
+  finalOb ['first'] = first;
+  finalOb ['second'] = second;
+  return finalOb
+}
+
+// function for graphs //
+function changeGraphs(x1, y1, x2,y2, color1, color2){
+  var trace1 = {
+     x: x1,
+     y: y1,
+     fill:'tonexty',
+     type: 'scatter',
+     fillcolor: color1,
+     line: {
+       color: color1,
+       shape:'spline'
+
+     },
+   };
+   var trace2 = {
+     x: x2,
+     y: y2,
+     fill: 'tozeroy',
+     type: 'scatter',
+     fillcolor: color2,
+     line: {
+       color: color2,
+       shape:'spline'
+
+     },
+
+   };
+
+ var data = [trace1, trace2];
+ var layout = {
+   autosize: true,
+   width:500,
+   height:200,
+   margin: {
+     l: 30,
+     r: 20,
+     b: 20,
+     t: 20,
+     pad: 2
+   },
+ }
+ Plotly.newPlot('plots', data,layout);
+
+
+}
+
+//function to integrate one part //
+function integrateOnePart (x1,x2,y1,y2){
+  let integration_ = (( x2 - x1 ) * ( y1 + y2 )) / 2;
+  // console.log(integration_);
+  return integration_;
+}
+
+// function to iterate and integrate //
+function integrationWhole(arr1, arr2){
+  let sumTotal = 0;
+  // console.log("total iterations");
+  // console.log(arr1.length);
+  for(let i=0; i< arr1.length ; ++i){
+    if(i+1 <arr1.length){
+      // console.log("this is the iteration");
+      // console.log(i);
+      let x2 = arr1[i];
+      // console.log(x2);
+      let x1 = arr1[i+1];
+      // console.log(x1);
+      let y2 = arr2[i];
+      // console.log(y2);
+      let y1 = arr2[i+1];
+      // console.log(y1);
+      let integra_ = integrateOnePart(x1,x2,y1,y2);
+      // console.log("This is the sum");
+      sumTotal = sumTotal +integra_;
+      // console.log(sumTotal);
+    }
+  }
+
+  return sumTotal;
+}
+
+// HAVE ABBREVIATION FOR LONG NUMBERS //
+
+function abbreviateNumber(number, decPlaces) {
+    // 2 decimal places => 100, 3 => 1000, etc
+    decPlaces = Math.pow(10,decPlaces);
+
+    // Enumerate number abbreviations
+    var abbrev = [ "K", "M", "B", "T" ];
+
+    // Go through the array backwards, so we do the largest first
+    for (var i=abbrev.length-1; i>=0; i--) {
+
+        // Convert array index to "1000", "1000000", etc
+        var size = Math.pow(10,(i+1)*3);
+
+        // If the number is bigger or equal do the abbreviation
+        if(size <= number) {
+             // Here, we multiply by decPlaces, round, and then divide by decPlaces.
+             // This gives us nice rounding to a particular decimal place.
+             number = Math.round(number*decPlaces/size)/decPlaces;
+
+             // Handle special case where we round up to the next abbreviation
+             if((number == 1000) && (i < abbrev.length - 1)) {
+                 number = 1;
+                 i++;
+             }
+
+             // Add the letter for the abbreviation
+             number += abbrev[i];
+
+             // We are done... stop
+             break;
+        }
+    }
+
+    return number;
+}
+
+//WATERFALL PLOT//
+function makeWaterFallChart(){
+  var data = [
+          {
+              name: "2018",
+              type: "waterfall",
+              orientation: "h",
+              measure: [
+                  "absolute",
+                  "relative",
+                  "relative",
+                  "total",
+
+              ],
+              y: [
+                  "Expected Damage",
+                  "Socio-economic Change Damage",
+                  "Climate Change Damage",
+                  "230 Annual Expected Damage",
+              ],
+              x: [
+                  375,
+                  128,
+                  78,
+                  27,
+
+              ],
+              connector: {
+                  mode: "between",
+                  line: {
+                      width: 1,
+                      color: "rgb(0, 0, 0)",
+                      dash: 0
+                  }
+              }
+          }
+      ];
+  var layout = {
+          // title: {
+          //     text: "Profit and loss statement 2018<br>waterfall chart displaying positive and negative"
+          // },
+          waterfallgap : 150,
+          yaxis: {
+              type: "category",
+              autorange: "reversed"
+          },
+          xaxis: {
+              type: "linear"
+          },
+          // margin: { l: 150 },
+          // showlegend: true,
+          autosize: true,
+          width:500,
+          height:200,
+          margin: {
+            l: 0,
+            r: 0,
+            b: 0,
+            t: 10,
+            pad: 2
+          },
+      }
+  Plotly.newPlot('ModelGraphA', data, layout);
+
+
+}
+
+//FUNCTION TO MAKE LES //
+function makesLessThanZero(x){
+  let y = x ;
+  if(x< 0 ){
+    y = 0;
+    console.log("soy negativo");
+  }
+  return y;
+}

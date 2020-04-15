@@ -9,6 +9,25 @@ var mapContainer="map";
 var backgroundColor="#000000";
 var countries=["select country","global"];
 var option = '';
+$('.carousel').carousel('pause');
+let annualDamageA = document.getElementById("valueDamageA");
+let annualAvoidedDamageA = document.getElementById("valueAvoidA");
+
+let annualCurrentExpectedA = document.getElementById("currentAnualExpectedA");
+let socioIncreaseA = document.getElementById("SocioIncreaseA");
+let climateChangeA = document.getElementById("ClimateChangeA");
+let f2030IncreaseA = document.getElementById("2030AnnualA");
+let annualCurrentExpectedB = document.getElementById("currentAnualExpectedB");
+let socioIncreaseB = document.getElementById("SocioIncreaseB");
+let climateChangeB = document.getElementById("ClimateChangeB");
+let f2030IncreaseB = document.getElementById("2030AnnualB");
+
+let annualCurrentExpectedC = document.getElementById("currentAnualExpectedC");
+let socioIncreaseC = document.getElementById("SocioIncreaseC");
+let climateChangeC = document.getElementById("ClimateChangeC");
+let f2030IncreaseC = document.getElementById("2030AnnualC");
+
+
 
 //Initialize Map//
 defineMapService(mapContainer,basemap,globalLayer);
@@ -140,3 +159,99 @@ document.addEventListener("click", function (e) {
     closeAllLists(e.target);
 });
 }
+
+//slider //
+console.log(giveURL());
+//slider Initialization and change in the output//
+var elements = document.getElementsByTagName('output')[0];
+console.log(elements);
+var sliderUI = $('input[type="range"]')[0];
+sliderUI.addEventListener("change", function(e){
+  console.log(e.target.value);
+  let valSLider = e.target.value.toString();
+  let newVal = arrayTrans[valSLider];
+  console.log(newVal);
+  elements.innerHTML = newVal;
+  let urlGeosJson = giveURL();
+  $.ajax({
+     url: urlGeosJson,
+     datatype: 'json',
+     jsonCallback: 'getJson',
+     success: function(data2){
+
+       let dataG = data2.features[0].properties;
+       console.log(data2.features[0].properties);
+       let g10_bh = makeArray("G10_bh",dataG);
+       let g30_24 = makeArray("G30_24",dataG);
+       let g30_28 = makeArray("G30_28",dataG);
+       let g30_3h = makeArray("G30_3h",dataG);
+       let g30_2h = makeArray("G30_2h",dataG);
+       let g30_b4 = makeArray("G30_b4",dataG);
+       let g30_b8 = makeArray("G30_b8",dataG);
+
+       // let yValuesG10 = Object.values(g10_bh);
+       let xValuesRP = Object.values(returnPeriodsProbs);
+       let splitG10_bh = splitArrays(g10_bh,e.target.value);
+       let splitG30_24 = splitArrays(g30_24,e.target.value);
+       let splitG30_28 = splitArrays(g30_28,e.target.value);
+       let splitG30_3h = splitArrays(g30_3h,e.target.value);
+       let splitG30_2h = splitArrays(g30_2h,e.target.value);
+       let splitG30_b4 = splitArrays(g30_b4,e.target.value);
+       let splitG30_b8 = splitArrays(g30_b8,e.target.value);
+
+       let splitXvaluesRP = splitArrays(xValuesRP,e.target.value);
+
+       console.log(xValuesRP);
+       console.log(g10_bh);
+       console.log(splitG10_bh);
+       console.log(splitXvaluesRP);
+       changeGraphs(splitXvaluesRP['first'],splitG10_bh['first'],splitXvaluesRP['second'],splitG10_bh['second'],'#5531B7','#0A0A0A')
+       // Now we have to define the values in the right part //
+       let firstIntegration = integrationWhole(splitXvaluesRP['first'],splitG10_bh['first']);
+       let secondIntegration = integrationWhole(splitXvaluesRP['second'],splitG10_bh['second']);
+       let firstIntegration30_24 = integrationWhole(splitXvaluesRP['first'],splitG30_24['first']);
+       let secondIntegration30_24 = integrationWhole(splitXvaluesRP['second'],splitG30_24['second']);
+       let firstIntegration30_28 = integrationWhole(splitXvaluesRP['first'],splitG30_28['first']);
+       let secondIntegration30_28 = integrationWhole(splitXvaluesRP['second'],splitG30_28['second']);
+       let firstIntegration30_3h = integrationWhole(splitXvaluesRP['first'],splitG30_3h['first']);
+       let secondIntegration30_3h = integrationWhole(splitXvaluesRP['second'],splitG30_3h['second']);
+       let firstIntegration30_2h = integrationWhole(splitXvaluesRP['first'],splitG30_2h['first']);
+       let secondIntegration30_2h = integrationWhole(splitXvaluesRP['second'],splitG30_2h['second']);
+       let firstIntegration30_b4 = integrationWhole(splitXvaluesRP['first'],splitG30_b4['first']);
+       let secondIntegration30_b4 = integrationWhole(splitXvaluesRP['second'],splitG30_b4['second']);
+       let firstIntegration30_b8 = integrationWhole(splitXvaluesRP['first'],splitG30_b8['first']);
+       let secondIntegration30_b8 = integrationWhole(splitXvaluesRP['second'],splitG30_b8['second']);
+
+
+
+       annualDamageA.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+       annualAvoidedDamageA.innerHTML = `$ ${ abbreviateNumber(firstIntegration,2)}`;
+
+       currentAnualExpectedA.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+       console.log("THIS IS MY TEST SOCIO ECONOMIC");
+       console.log(secondIntegration30_2h -secondIntegration);
+       console.log("THIS IS MY TEST CLIMATE CHANGE");
+       console.log(secondIntegration30_b4 -secondIntegration);
+
+       let increaseSocioA = makesLessThanZero(secondIntegration30_2h -secondIntegration);
+       // makesLessThanZero(increaseSocioA);
+       let increaseClimateA = makesLessThanZero(secondIntegration30_b4 -secondIntegration);
+       // makesLessThanZero(increaseClimateA)
+       socioIncreaseA.innerHTML = `$ ${ abbreviateNumber(increaseSocioA,2)}`;
+       climateChangeA.innerHTML = `$ ${ abbreviateNumber(increaseClimateA,2)}`;
+       f2030IncreaseA.innerHTML = `$ ${ abbreviateNumber(secondIntegration30_24,2)}`;
+
+       currentAnualExpectedB.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+       currentAnualExpectedC.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+
+
+       console.log(firstIntegration);
+
+       console.log(secondIntegration);
+       makeWaterFallChart();
+     }
+
+   })
+
+
+})

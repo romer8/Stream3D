@@ -34,9 +34,9 @@
       <button type="button" id="startSlider">Start Animation!</button>
       <button type="button" id="stopSlider">Stop Animation!</button>
       <select class="selectpicker" data-style = "btn-primary">
-        <option>Scenario A</option>
-        <option> Scenario B</option>
-        <option> Scenario C</option>
+        <option> Affected GDP</option>
+        <option>Urban Damage</option>
+        <option> Affected Population</option>
       </select>
     </div>
     <div id="dataFlood">
@@ -50,12 +50,132 @@
         data-orientation="horizontal"
       >
       <output>2-year Protection</output>
-      <!-- <div id="plots"> </div> -->
-      <canvas id="plots"></canvas>
+      <div id="plots"> </div>
+      <!-- <canvas id="plots"></canvas> -->
 
     </div>
     <div id="affectedMoney">
-      <!-- <div id="plots"> </div> -->
+      <div id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <h2>Scenario A</h2>
+            <div id="ScenarioA">
+              <div class="ExpectedAvoidedDamage">
+                <div class="exavod">
+                  <p>Annual Expected Damage: </p>
+                  <p id = "valueDamageA"> $ 0.0</p>
+                </div>
+                <div class="exavod">
+                  <p>Annual Avoided Damage </p>
+                  <p id = "valueAvoidA"> $ 0.0</p>
+                </div>
+              </div>
+              <div class="ModelsValGraphs">
+                <div class="ModelVals">
+                  <p>Current Anual Expected Affected</p>
+                  <p id = "currentAnualExpectedA">......</p>
+                  <p> Increased Impact Due to Socio-economic Change</p>
+                  <p id = "SocioIncreaseA">.....</p>
+                  <p> Increased Impact Due to Climate Change</p>
+                  <p id = "ClimateChangeA">.....</p>
+                  <p> 2030 Annual Expected Affected</p>
+                  <p id="2030AnnualA"> .....</p>
+                </div>
+                <div id="ModelGraphA" class="ModelGraphs">
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="item">
+            <h2>Scenario B</h2>
+            <div id="ScenarioB">
+              <div class="ExpectedAvoidedDamage">
+                <div class="exavod">
+                  <p>Annual Expected Damage </p>
+                  <p id = "valueDamageB"> $ 0.0</p>
+                </div>
+                <div class="exavod">
+                  <p>Annual Avoided Damage </p>
+                  <p id = "valueAvoidB"> $ 0.0</p>
+                </div>
+              </div>
+              <div class="ModelsValGraphs">
+                <div class="ModelVals">
+                  <p>Current Anual Expected Affected</p>
+                  <p id = "currentAnualExpectedB">......</p>
+                  <p> Increased Impact Due to Socio-economic Change</p>
+                  <p id = "SocioIncreaseB">.....</p>
+                  <p> Increased Impact Due to Climate Change</p>
+                  <p id = "ClimateChangeB">.....</p>
+                  <p> 2030 Annual Expected Affected </p>
+                  <p id="2030AnnualB"> .....</p>
+                </div>
+                <div id="ModelGraphB" class="ModelGraphs">
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <h2>Scenario C</h2>
+            <div id="ScenarioC">
+              <div class="ExpectedAvoidedDamage">
+                <div class="exavod">
+                  <p>Annual Expected Damage </p>
+                  <p id = "valueDamageC"> $ 0.0</p>
+
+                </div>
+                <div class="exavod">
+                  <p>Annual Avoided Damage </p>
+                  <p id = "valueAvoidC"> $ 0.0</p>
+
+                </div>
+              </div>
+              <div class="ModelsValGraphs">
+                <div class="ModelVals">
+                </div>
+                <div id="ModelGraphC" class="ModelGraphs">
+                  <p>Current Anual Expected Affected</p>
+                  <p id = "currentAnualExpectedC">......</p>
+                  <p> Increased Impact Due to Socio-economic Change</p>
+                  <p id = "SocioIncreaseC">.....</p>
+                  <p> Increased Impact Due to Climate Change</p>
+                  <p id = "ClimateChangeC">.....</p>
+                  <p> 2030 Annual Expected Affected GDP</p>
+                  <p id="2030AnnualC"> .....</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+
+
+
+
+
 
     </div>
   </div>

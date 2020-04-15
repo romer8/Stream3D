@@ -40,7 +40,37 @@ body {
   order:2;
   width: 100%;
   height: 100%;
-
+}
+#myCarousel{
+  width: 100%;
+  height:100%;
+}
+.carousel-control.left{
+  background-image: none;
+}
+.carousel-control.right{
+  background-image: none;
+}
+.ExpectedAvoidedDamage{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+.exavod{
+  flex: 1 1 50%;
+  width: 100%;
+  height:100%;
+  flex-direction: column;
+}
+.ModelsValGraphs{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+.ModelVals{
+  margin-top:3%;
 }
 #plots{
   flex:1 1 50%;

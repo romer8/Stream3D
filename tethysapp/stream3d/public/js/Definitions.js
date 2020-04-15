@@ -2,6 +2,7 @@
 var geoLayer
 var jsonCountries = getAllArray();
 var returnPeriodsProbs = getReturnPeriods();
+var retrunURL ="";
 // var geoJsonLayer=L.geoJson({}, {style: function(feature){
 //
 //     var fillColor=backgroundColor;
@@ -328,47 +329,8 @@ function defineMapService (divContainer,basemap,globalLayer){
     //  });
 
 };
-function xmlToJson(xml) {
-    // Create the return object
-    var obj = {};
-
-    // console.log(xml.nodeType, xml.nodeName );
-
-    if (xml.nodeType == 1) { // element
-        // do attributes
-        if (xml.attributes.length > 0) {
-        obj["@attributes"] = {};
-            for (var j = 0; j < xml.attributes.length; j++) {
-                var attribute = xml.attributes.item(j);
-                obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-            }
-        }
-    }
-    else if (xml.nodeType == 3 ||
-             xml.nodeType == 4) { // text and cdata section
-        obj = xml.nodeValue
-    }
-
-    // do children
-    if (xml.hasChildNodes()) {
-        for(var i = 0; i < xml.childNodes.length; i++) {
-            var item = xml.childNodes.item(i);
-            var nodeName = item.nodeName;
-            if (typeof(obj[nodeName]) == "undefined") {
-                obj[nodeName] = xmlToJson(item);
-            } else {
-                if (typeof(obj[nodeName].length) == "undefined") {
-                    var old = obj[nodeName];
-                    obj[nodeName] = [];
-                    obj[nodeName].push(old);
-                }
-                if (typeof(obj[nodeName]) === 'object') {
-                    obj[nodeName].push(xmlToJson(item));
-                }
-            }
-        }
-    }
-    return obj;
+function giveURL() {
+  return retrunURL;
 }
 
 function chooseCountry (country, backgroundColor){
@@ -480,6 +442,7 @@ function chooseCountry (country, backgroundColor){
             console.log(featureIDBase);
             var formatoUrl = "&outputFormat=application/json"
             var urlRetrieveGeoJSonGeoserver = urlFloodsBase + featureIDBase + formatoUrl;
+            retrunURL = urlRetrieveGeoJSonGeoserver;
             $.ajax({
                // url: urlFloods + L.Util.getParamString(parameters),
                // url:"https://geoserver.hydroshare.org/geoserver/HS-895d19627ff84f69ad15619bb1d3da02/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=HS-895d19627ff84f69ad15619bb1d3da02:aqueduct_global_flood_risk_data_by_country_20150304&featureID=aqueduct_global_flood_risk_data_by_country_20150304.11&outputFormat=application/json",
@@ -487,6 +450,7 @@ function chooseCountry (country, backgroundColor){
                datatype: 'json',
                jsonCallback: 'getJson',
                success: function(data2){
+
                  let dataG = data2.features[0].properties;
                  console.log(data2.features[0].properties);
                  let g10_bh = makeArray("G10_bh",dataG);
@@ -499,41 +463,41 @@ function chooseCountry (country, backgroundColor){
 
                  // let yValuesG10 = Object.values(g10_bh);
                  let xValuesRP = Object.values(returnPeriodsProbs);
+
                  console.log(xValuesRP);
                  console.log(g10_bh);
                  var trace1 = {
                     x: xValuesRP.reverse(),
                     y: g10_bh.reverse(),
                     fill:'tonexty',
-                    type: 'scatter'
-                  };
-
-                var data = [trace1];
-
-                Plotly.newPlot('plots', data);
-                var ctx = document.getElementById('plots').getContext('2d');
-                var chart = new Chart(ctx, {
-                    // The type of chart we want to create
-                    type: 'line',
-
-                    // The data for our dataset
-                    data: {
-                        labels: xValuesRP,
-                        datasets: [{
-                            label: 'Risk curve',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: g10_bh
-                        }]
+                    type: 'scatter',
+                    fillcolor: '#0A0A0A',
+                    line: {
+                      color: '#0A0A0A',
+                      shape:'spline'
                     },
+                  };
+                  var trace2={
 
-                    // Configuration options go here
-                    options: {
+                  }
 
+                var data = [trace1, trace2];
+                var layout = {
+                  autosize: true,
+                  width:500,
+                  height:200,
+                  margin: {
+                    l: 20,
+                    r: 20,
+                    b: 20,
+                    t: 20,
+                    pad: 2
+                  },
+                }
+                Plotly.newPlot('plots', data,layout);
 
-                    }
-                });
                }
+
              })
 
           }
