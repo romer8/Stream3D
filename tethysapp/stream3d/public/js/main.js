@@ -222,21 +222,28 @@ sliderUI.addEventListener("change", function(e){
        let firstIntegration30_b8 = integrationWhole(splitXvaluesRP['first'],splitG30_b8['first']);
        let secondIntegration30_b8 = integrationWhole(splitXvaluesRP['second'],splitG30_b8['second']);
 
-
+       console.log("this is the xurrent");
+       console.log(secondIntegration);
+       console.log("this is more socio");
+       console.log(secondIntegration30_2h);
+       console.log("this is the climate");
+       console.log(secondIntegration30_b4);
+       console.log("this is the 30 expectancy");
+       console.log(secondIntegration30_24);
 
        annualDamageA.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
        annualAvoidedDamageA.innerHTML = `$ ${ abbreviateNumber(firstIntegration,2)}`;
 
        currentAnualExpectedA.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
-       console.log("THIS IS MY TEST SOCIO ECONOMIC");
-       console.log(secondIntegration30_2h -secondIntegration);
-       console.log("THIS IS MY TEST CLIMATE CHANGE");
-       console.log(secondIntegration30_b4 -secondIntegration);
+
 
        let increaseSocioA = makesLessThanZero(secondIntegration30_2h -secondIntegration);
-       // makesLessThanZero(increaseSocioA);
        let increaseClimateA = makesLessThanZero(secondIntegration30_b4 -secondIntegration);
-       // makesLessThanZero(increaseClimateA)
+       let totalHypoA = secondIntegration + increaseSocioA + increaseClimateA;
+
+       let waterFallArrayA = [secondIntegration, increaseSocioA, increaseClimateA,totalHypoA ];
+
+
        socioIncreaseA.innerHTML = `$ ${ abbreviateNumber(increaseSocioA,2)}`;
        climateChangeA.innerHTML = `$ ${ abbreviateNumber(increaseClimateA,2)}`;
        f2030IncreaseA.innerHTML = `$ ${ abbreviateNumber(secondIntegration30_24,2)}`;
@@ -248,7 +255,7 @@ sliderUI.addEventListener("change", function(e){
        console.log(firstIntegration);
 
        console.log(secondIntegration);
-       makeWaterFallChart();
+       makeWaterFallChart(waterFallArrayA);
      }
 
    })

@@ -509,9 +509,9 @@ function changeGraphs(x1, y1, x2,y2, color1, color2){
    height:200,
    margin: {
      l: 30,
-     r: 20,
-     b: 20,
-     t: 20,
+     r: 0,
+     b: 0,
+     t: 0,
      pad: 2
    },
  }
@@ -549,6 +549,11 @@ function integrationWhole(arr1, arr2){
       sumTotal = sumTotal +integra_;
       // console.log(sumTotal);
     }
+
+  }
+  if(arr1.length === 1){
+    let calc = arr1[0]*arr2[0];
+    sumTotal = sumTotal + calc;
   }
 
   return sumTotal;
@@ -593,7 +598,7 @@ function abbreviateNumber(number, decPlaces) {
 }
 
 //WATERFALL PLOT//
-function makeWaterFallChart(){
+function makeWaterFallChart(arr){
   var data = [
           {
               name: "2018",
@@ -612,13 +617,7 @@ function makeWaterFallChart(){
                   "Climate Change Damage",
                   "230 Annual Expected Damage",
               ],
-              x: [
-                  375,
-                  128,
-                  78,
-                  27,
-
-              ],
+              x: arr,
               connector: {
                   mode: "between",
                   line: {
@@ -645,7 +644,7 @@ function makeWaterFallChart(){
           // showlegend: true,
           autosize: true,
           width:500,
-          height:200,
+          height:300,
           margin: {
             l: 0,
             r: 0,
