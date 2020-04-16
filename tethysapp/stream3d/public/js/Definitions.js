@@ -177,22 +177,6 @@ function defineMapService (divContainer,basemap,globalLayer){
           return tabs
         },{maxWidth: "auto"});
 
-        // document.querySelector(".leaflet-popup-pane").addEventListener("load", function (event) {
-        // 	var target = event.target,
-        //   		tagName = target.tagName,
-        //       popup = map._popup;
-        //
-        //   console.log("got load event from " + tagName);
-        //   console.log(popup);
-        //
-        //   if (tagName === "style" && popup) {
-        //   	// popup.update();
-        //   }
-        // }, true); // Capture the load event, because it does not bubble.
-
-
-
-
 
 
         //DEFINE THE SLIDER
@@ -304,47 +288,6 @@ function defineMapService (divContainer,basemap,globalLayer){
         })
 
     });
-    // var urlFloods= "https://geoserver.hydroshare.org/geoserver/HS-895d19627ff84f69ad15619bb1d3da02/ows";
-    //
-    // var defaultParameters = {
-    //     service: 'WFS',
-    //     version: '1.0.0',
-    //     request: 'getFeature',
-    //     typeName: 'HS-895d19627ff84f69ad15619bb1d3da02:aqueduct_global_flood_risk_data_by_country_20150304',
-    //     // featureID: "aqueduct_global_flood_risk_data_by_country_20150304.1",
-    //     maxFeatures: 253,
-    //     outputFormat: 'application/json'
-    // };
-    // var customParams = {
-    //   bbox: map.getBounds().toBBoxString(),
-    // };
-    // var parameters = L.Util.extend(defaultParameters, customParams);
-    // var geojsonDataFloods = new L.GeoJSON();
-    //
-    // $.ajax({
-    //    url: urlFloods + L.Util.getParamString(parameters),
-    //    datatype: 'json',
-    //    jsonCallback: 'getJson',
-    //    success: function(data){
-    //      console.log(data);
-    //      var geojsonDataFloods = new L.GeoJSON(data,{
-    //        style : function(feature){
-    //           var fillColor = "#006837";
-    //           return { color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .6 };
-    //        },
-    //        onEachFeature : function(feature, layer){
-    //          console.log("hola");
-    //          layer.bindPopup(feature.properties["unit_name"])
-    //        }
-    //
-    //      });
-    //
-    //
-    //      // map.addLayer(geojsonDataFloods);
-    //
-    //    }
-    //    // loadGeoJson
-    //  });
 
 };
 function giveURL() {
