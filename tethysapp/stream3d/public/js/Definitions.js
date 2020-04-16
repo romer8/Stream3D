@@ -442,62 +442,7 @@ function chooseCountry (country, backgroundColor){
             var urlRetrieveGeoJSonGeoserver = urlFloodsBase + featureIDBase + formatoUrl;
             retrunURL = urlRetrieveGeoJSonGeoserver;
             retrieveDataMoney(urlRetrieveGeoJSonGeoserver);
-            // $.ajax({
-            //    // url: urlFloods + L.Util.getParamString(parameters),
-            //    // url:"https://geoserver.hydroshare.org/geoserver/HS-895d19627ff84f69ad15619bb1d3da02/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=HS-895d19627ff84f69ad15619bb1d3da02:aqueduct_global_flood_risk_data_by_country_20150304&featureID=aqueduct_global_flood_risk_data_by_country_20150304.11&outputFormat=application/json",
-            //    url: urlRetrieveGeoJSonGeoserver,
-            //    datatype: 'json',
-            //    jsonCallback: 'getJson',
-            //    success: function(data2){
-            //
-            //      let dataG = data2.features[0].properties;
-            //      console.log(data2.features[0].properties);
-            //      let g10_bh = makeArray("G10_bh",dataG);
-            //      let g30_24 = makeArray("G30_24",dataG);
-            //      let g30_28 = makeArray("G30_28",dataG);
-            //      let g30_3h = makeArray("G30_3h",dataG);
-            //      let g30_2h = makeArray("G30_2h",dataG);
-            //      let g30_b4 = makeArray("G30_b4",dataG);
-            //      let g30_b8 = makeArray("G30_b8",dataG);
-            //
-            //      // let yValuesG10 = Object.values(g10_bh);
-            //      let xValuesRP = Object.values(returnPeriodsProbs);
-            //
-            //      console.log(xValuesRP);
-            //      console.log(g10_bh);
-            //      var trace1 = {
-            //         x: xValuesRP.reverse(),
-            //         y: g10_bh.reverse(),
-            //         fill:'tonexty',
-            //         type: 'scatter',
-            //         fillcolor: '#0A0A0A',
-            //         line: {
-            //           color: '#0A0A0A',
-            //           shape:'spline'
-            //         },
-            //       };
-            //       var trace2={
-            //
-            //       }
-            //
-            //     var data = [trace1, trace2];
-            //     var layout = {
-            //       autosize: true,
-            //       width:500,
-            //       height:200,
-            //       margin: {
-            //         l: 20,
-            //         r: 20,
-            //         b: 20,
-            //         t: 20,
-            //         pad: 2
-            //       },
-            //     }
-            //     Plotly.newPlot('plots', data,layout);
-            //
-            //    }
-            //
-            //  })
+
 
           }
 
