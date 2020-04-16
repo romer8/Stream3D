@@ -175,7 +175,25 @@ function defineMapService (divContainer,basemap,globalLayer){
           addContentToTabs(seasonalTab,"seasonal");
           // L.DomEvent.stop(featureCollection);
           return tabs
-        });
+        },{maxWidth: "auto"});
+
+        // document.querySelector(".leaflet-popup-pane").addEventListener("load", function (event) {
+        // 	var target = event.target,
+        //   		tagName = target.tagName,
+        //       popup = map._popup;
+        //
+        //   console.log("got load event from " + tagName);
+        //   console.log(popup);
+        //
+        //   if (tagName === "style" && popup) {
+        //   	// popup.update();
+        //   }
+        // }, true); // Capture the load event, because it does not bubble.
+
+
+
+
+
 
         //DEFINE THE SLIDER
         // createSliderUI(startTime,endTime);

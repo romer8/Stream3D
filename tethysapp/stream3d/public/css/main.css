@@ -151,6 +151,9 @@ input[type=text] {
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+.leaflet-popup-content {
+width:auto !important;
+}
 
 
 </style>
