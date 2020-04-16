@@ -328,7 +328,7 @@ function getArrayTrans(){
 // console.log(elements);
 // var sliderUI = $('input[type="range"]')[0];
 // sliderUI.addEventListener("change", function(e){
-//   console.log(e.target.value);
+//   console.log(sliderUI);
 //   let valSLider = e.target.value.toString();
 //   let newVal = arrayTrans[valSLider];
 //   console.log(newVal);
@@ -666,4 +666,137 @@ function makesLessThanZero(x){
     console.log("soy negativo");
   }
   return y;
+}
+
+// Deciding which functions to have //
+function decideOption(x) {
+  let y;
+  if(x === "Affected GDP"){
+    y = "G";
+  }
+  if(x ==="Urban Damage"){
+    y = "U";
+  }
+  if(x === "Affected Population"){
+    y = "P";
+  }
+  return y;
+}
+
+// FUNCTION DECIDING THE CHANGE OF THE SLIDER OR THE DROPDOWN MENU //
+function retrieveDataMoney(urlGeosJson){
+  $.ajax({
+     url: urlGeosJson,
+     datatype: 'json',
+     jsonCallback: 'getJson',
+     success: function(data2){
+
+       let dataG = data2.features[0].properties;
+       console.log(data2.features[0].properties);
+       let selectOptions = $('.selectpicker')[0];
+       let rootInitial = decideOption(selectOptions.value);
+       console.log(rootInitial);
+       var sliderUI = $('input[type="range"]')[1].value;
+       console.log($('input[type="range"]'));
+
+       let x10_bh = makeArray(`${rootInitial}10_bh`,dataG);
+       let x30_24 = makeArray(`${rootInitial}30_24`,dataG);
+       let x30_28 = makeArray(`${rootInitial}30_28`,dataG);
+       let x30_3h = makeArray(`${rootInitial}30_3h`,dataG);
+       let x30_2h = makeArray(`${rootInitial}30_2h`,dataG);
+       let x30_b4 = makeArray(`${rootInitial}30_b4`,dataG);
+       let x30_b8 = makeArray(`${rootInitial}30_b8`,dataG);
+       let x30_38 = makeArray(`${rootInitial}30_38`,dataG);
+
+       // let yValuesG10 = Object.values(g10_bh);
+       let xValuesRP = Object.values(returnPeriodsProbs);
+       let splitx10_bh = splitArrays(x10_bh,sliderUI);
+       let splitx30_24 = splitArrays(x30_24,sliderUI);
+       let splitx30_28 = splitArrays(x30_28,sliderUI);
+       let splitx30_3h = splitArrays(x30_3h,sliderUI);
+       let splitx30_2h = splitArrays(x30_2h,sliderUI);
+       let splitx30_b4 = splitArrays(x30_b4,sliderUI);
+       let splitx30_b8 = splitArrays(x30_b8,sliderUI);
+       let splitx30_38 = splitArrays(x30_38,sliderUI);
+
+       let splitXvaluesRP = splitArrays(xValuesRP,sliderUI);
+
+       console.log(xValuesRP);
+       console.log(x10_bh);
+       console.log(splitx10_bh);
+       console.log(splitXvaluesRP);
+       changeGraphs(splitXvaluesRP['first'],splitx10_bh['first'],splitXvaluesRP['second'],splitx10_bh['second'],'#5531B7','#0A0A0A')
+       // Now we have to define the values in the right part //
+       let firstIntegration = integrationWhole(splitXvaluesRP['first'],splitx10_bh['first']);
+       let secondIntegration = integrationWhole(splitXvaluesRP['second'],splitx10_bh['second']);
+       let firstIntegration30_24 = integrationWhole(splitXvaluesRP['first'],splitx30_24['first']);
+       let secondIntegration30_24 = integrationWhole(splitXvaluesRP['second'],splitx30_24['second']);
+       let firstIntegration30_28 = integrationWhole(splitXvaluesRP['first'],splitx30_28['first']);
+       let secondIntegration30_28 = integrationWhole(splitXvaluesRP['second'],splitx30_28['second']);
+       let firstIntegration30_3h = integrationWhole(splitXvaluesRP['first'],splitx30_3h['first']);
+       let secondIntegration30_3h = integrationWhole(splitXvaluesRP['second'],splitx30_3h['second']);
+       let firstIntegration30_2h = integrationWhole(splitXvaluesRP['first'],splitx30_2h['first']);
+       let secondIntegration30_2h = integrationWhole(splitXvaluesRP['second'],splitx30_2h['second']);
+       let firstIntegration30_b4 = integrationWhole(splitXvaluesRP['first'],splitx30_b4['first']);
+       let secondIntegration30_b4 = integrationWhole(splitXvaluesRP['second'],splitx30_b4['second']);
+       let firstIntegration30_b8 = integrationWhole(splitXvaluesRP['first'],splitx30_b8['first']);
+       let secondIntegration30_b8 = integrationWhole(splitXvaluesRP['second'],splitx30_b8['second']);
+       let firstIntegration30_38 = integrationWhole(splitXvaluesRP['first'],splitx30_38['first']);
+       let secondIntegration30_38 = integrationWhole(splitXvaluesRP['second'],splitx30_38['second']);
+
+       console.log("this is the xurrent");
+       console.log(secondIntegration);
+       console.log("this is more socio");
+       console.log(secondIntegration30_2h);
+       console.log("this is the climate");
+       console.log(secondIntegration30_b4);
+       console.log("this is the 30 expectancy");
+       console.log(secondIntegration30_24);
+
+       annualDamageA.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+       annualAvoidedDamageA.innerHTML = `$ ${ abbreviateNumber(firstIntegration,2)}`;
+
+
+       //MAKING SLIDE A
+       currentAnualExpectedA.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+       let increaseSocioA = makesLessThanZero(secondIntegration30_2h -secondIntegration);
+       let increaseClimateA = makesLessThanZero(secondIntegration30_b4 -secondIntegration);
+       let totalHypoA = secondIntegration + increaseSocioA + increaseClimateA;
+       socioIncreaseA.innerHTML = `$ ${ abbreviateNumber(increaseSocioA,2)}`;
+       climateChangeA.innerHTML = `$ ${ abbreviateNumber(increaseClimateA,2)}`;
+       f2030IncreaseA.innerHTML = `$ ${ abbreviateNumber(secondIntegration30_24,2)}`;
+       let waterFallArrayA = [secondIntegration, increaseSocioA, increaseClimateA,totalHypoA ];
+       makeWaterFallChart(waterFallArrayA, "ModelGraphA");
+
+
+       // MAKING SLIDE B
+       annualDamageB.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+       annualAvoidedDamageB.innerHTML = `$ ${ abbreviateNumber(firstIntegration,2)}`;
+       currentAnualExpectedB.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+       let increaseSocioB = makesLessThanZero(secondIntegration30_2h -secondIntegration);
+       let increaseClimateB = makesLessThanZero(secondIntegration30_b8 -secondIntegration);
+       let totalHypoB = secondIntegration + increaseSocioB + increaseClimateB;
+       socioIncreaseB.innerHTML = `$ ${ abbreviateNumber(increaseSocioB,2)}`;
+       climateChangeB.innerHTML = `$ ${ abbreviateNumber(increaseClimateB,2)}`;
+       f2030IncreaseB.innerHTML = `$ ${ abbreviateNumber(secondIntegration30_28,2)}`;
+       let waterFallArrayB = [secondIntegration, increaseSocioB, increaseClimateB,totalHypoB ];
+       makeWaterFallChart(waterFallArrayB, "ModelGraphB");
+
+       //MAKING SLIDE C
+       annualDamageC.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+       annualAvoidedDamageC.innerHTML = `$ ${ abbreviateNumber(firstIntegration,2)}`;
+       currentAnualExpectedC.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
+       let increaseSocioC = makesLessThanZero(secondIntegration30_3h -secondIntegration);
+       let increaseClimateC = makesLessThanZero(secondIntegration30_b8 -secondIntegration);
+       let totalHypoC = secondIntegration + increaseSocioC + increaseClimateC;
+       socioIncreaseC.innerHTML = `$ ${ abbreviateNumber(increaseSocioC,2)}`;
+       climateChangeC.innerHTML = `$ ${ abbreviateNumber(increaseClimateC,2)}`;
+       f2030IncreaseC.innerHTML = `$ ${ abbreviateNumber(secondIntegration30_38,2)}`;
+
+       let waterFallArrayC = [secondIntegration, increaseSocioC, increaseClimateC,totalHypoC ];
+       makeWaterFallChart(waterFallArrayC, "ModelGraphC");
+     }
+
+   })
+
 }
