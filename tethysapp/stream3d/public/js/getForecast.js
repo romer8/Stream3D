@@ -15,7 +15,7 @@ var endpoint="https://tethys2.byu.edu/localsptapi/api/";
 function graph_f (reachid,htmlELement,add, width,height){
   width = (typeof width !== 'undefined') ?  width : 500;
   height = (typeof heigth !== 'undefined') ?  heigth : 500;
-  add = (typeof width !== 'undefined') ?  width : false;
+  add = (typeof add !== 'undefined') ?  add : false;
   var layer_URL=endpoint +"ForecastEnsembles/?reach_id="+reachid+"&return_format=csv";
     $.ajax({
       type: 'GET',
@@ -119,23 +119,35 @@ function graph_f (reachid,htmlELement,add, width,height){
 
          //Removing any exisisting element with the same name//
 
-         var divELement=document.getElementById("graph");
-         if(divELement != null && add==false){
-           Plotly.purge(divELement);
-           divELement.remove();
-           console.log("removing");
-         };
-         console.log(divELement);
-         console.log(add);
+         // var divELement=document.getElementById("graph");
 
-         divELement=document.createElement('div');
-         divELement.setAttribute("id", "graph");
-         divELementParent= document.getElementById(htmlELement);
-         console.log(divELementParent);
-         divELementParent.append(divELement);
+         // if(divELement !== null && add==false){
+         //   Plotly.purge(divELement);
+         //   divELement.remove();
+         //   console.log("removing the forecast");
+         // };
+         //
+         //
+         // console.log(divELement);
+         // console.log(add);
+         //
+         // divELement=document.createElement('div');
+         // divELement.setAttribute("id", "graph");
+
+         // divELementParent= document.getElementById(htmlELement);
+         // console.log(divELementParent);
+         // if(divELementParent !== null && add==false){
+         //   Plotly.purge(divELementParent);
+         //   // divELementParent.remove();
+         //   console.log("removing the forecast parent ");
+         // };
+
+         // divELementParent.append(divELement);
 
 
-         Plotly.newPlot('graph', data, layout);
+         // Plotly.newPlot('graph', data, layout);
+         Plotly.purge(htmlELement);
+         Plotly.newPlot(htmlELement, data, layout);
          var index = data[0].x.length-1;
          // index=index.length;
 
@@ -147,7 +159,7 @@ function graph_f (reachid,htmlELement,add, width,height){
          //   console.log(data[0].x[i]);
          //
          // };
-         returnPeriods.graph_rp(reachid, data[0].x[0], data[0].x[index],width,height);
+         graph_rp(reachid, data[0].x[0], data[0].x[index],width,height,htmlELement);
          // getreturnperiods(reachid, data[0].x[0], data[0].x[index],width,height);
 
          dates.highres = [], dates.dates = [];
@@ -346,7 +358,8 @@ function locationGraph_f (lat,lon,htmlELement,add, width,height){
              //   console.log(data[0].x[i]);
              //
              // };
-             returnPeriods.graph_rp(reachid, data[0].x[0], data[0].x[index],width,height);
+
+             // returnPeriods.graph_rp(reachid, data[0].x[0], data[0].x[index],width,height);
              // getreturnperiods(reachid, data[0].x[0], data[0].x[index],width,height);
 
              dates.highres = [], dates.dates = [];

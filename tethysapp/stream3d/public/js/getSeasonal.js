@@ -15,7 +15,7 @@ var endpoint="https://tethys2.byu.edu/localsptapi/api/";
 function graph_s(reachid,htmlELement,add,width,height) {
   width = (typeof width !== 'undefined') ?  width : 500;
   height = (typeof heigth !== 'undefined') ?  heigth : 500;
-  add = (typeof width !== 'undefined') ?  width : false;
+  add = (typeof add !== 'undefined') ?  add : false;
   console.log('WE HAVE ENTERED GET_SEASONAL_AVERAGE FUNCTION()');
   var layer_URL=endpoint+"SeasonalAverage/?reach_id="+reachid+"&return_format=csv";
   $.ajax({
@@ -48,6 +48,8 @@ function graph_s(reachid,htmlELement,add,width,height) {
           var layout = {
               // title: 'Historical Streamflow<br>'+titleCase(watershed) + ' Reach ID:' + comid,
               title: 'Seasonal Average StreamFlow<br>'+' Reach ID:' + reachid,
+              width: width,
+              height: height,
               xaxis: {title: 'Date'},
               yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...data[0].y) + Math.max(...data[0].y)/5]},
               // plot_bgcolor:"#7782c5",
@@ -55,18 +57,24 @@ function graph_s(reachid,htmlELement,add,width,height) {
               //shapes: returnShapes,
           }
           //Removing any exisisting element with the same name//
-          var divELement=document.getElementById("graph");
-          if(divELement != null && add==false){
-            Plotly.purge(divELement);
-            divELement.remove();
-          };
+          // var divELement=document.getElementById("graph");
+          // console.log("This is the divELement for the Seasonal");
+          // console.log(divELement);
+          // console.log("this is the add for the Seasonal");
+          // console.log(add);
+          // if(divELement !== null && add==false){
+          //   Plotly.purge(divELement);
+          //   divELement.remove();
+          // };
+          //
+          // divELement=document.createElement('div');
+          // divELement.setAttribute("id", "graph");
+          // divELementParent= document.getElementById(htmlELement);
+          // divELementParent.append(divELement);
 
-          divELement=document.createElement('div');
-          divELement.setAttribute("id", "graph");
-          divELementParent= document.getElementById(htmlELement);
-          divELementParent.append(divELement);
-
-          Plotly.newPlot('graph', data, layout);
+          // Plotly.newPlot('graph', data, layout);
+          Plotly.purge(htmlELement);
+          Plotly.newPlot(htmlELement, data, layout);
 
           var index = data[0].x.length-1;
 
@@ -75,7 +83,7 @@ function graph_s(reachid,htmlELement,add,width,height) {
           //   console.log(data[0].y[i]);
           //
           // };
-          returnPeriods.graph_rp(reachid, data[0].x[0], data[0].x[index],width,height);
+          graph_rp(reachid, data[0].x[0], data[0].x[index],width,height,htmlELement);
 
           // getreturnperiods(reachid, data[0].x[0], data[0].x[index],width,height);
 

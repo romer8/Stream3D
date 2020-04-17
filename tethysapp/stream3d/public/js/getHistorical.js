@@ -15,7 +15,7 @@ var endpoint="https://tethys2.byu.edu/localsptapi/api/";
 function  graph_h(reachid,htmlELement,add,width,height) {
   width = (typeof width !== 'undefined') ?  width : 500;
   height = (typeof heigth !== 'undefined') ?  heigth : 500;
-  add = (typeof width !== 'undefined') ?  width : false;
+  add = (typeof add !== 'undefined') ?  add : false;
   var dataObject={};
   console.log('WE HAVE ENTERED GETHISTORICDATA FUNCTION()');
   var layer_URL=endpoint +"HistoricSimulation/?reach_id="+reachid+"&return_format=csv";
@@ -64,31 +64,41 @@ function  graph_h(reachid,htmlELement,add,width,height) {
         var layout = {
             // title: 'Historical Streamflow<br>'+titleCase(watershed) + ' Reach ID:' + comid,
             title: 'Historical Streamflow<br>'+' Reach ID:' + reachid,
+            width: width,
+            height: height,
             xaxis: {title: 'Date'},
             yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...data[0].y) + Math.max(...data[0].y)/5]},
             // plot_bgcolor:"#7782c5",
-
             //shapes: returnShapes,
         }
         //Removing any exisisting element with the same name//
-        var divELement=document.getElementById("graph");
-        if(divELement != null && add==false){
-          Plotly.purge(divELement);
-          divELement.remove();
-        };
+        // var divELement=document.getElementById("graph");
 
-        divELement=document.createElement('div');
-        divELement.setAttribute("id", "graph");
-        divELementParent= document.getElementById(htmlELement);
-        divELementParent.append(divELement);
+        // console.log("This is the divELement for the Historical");
+        // console.log(divELement);
+        // console.log("this is the add for the historical");
+        // console.log(add);
+        //
+        // if(divELement !== null && add==false){
+        //   Plotly.purge(divELement);
+        //   divELement.remove();
+        //   console.log("Removing the historical");
+        // };
+        //
+        // divELement=document.createElement('div');
+        // divELement.setAttribute("id", "graph");
+        // divELementParent= document.getElementById(htmlELement);
+        // divELementParent.append(divELement);
 
-        Plotly.newPlot('graph', data, layout);
+        // Plotly.newPlot('graph', data, layout);
+        Plotly.purge(htmlELement);
+        Plotly.newPlot(htmlELement, data, layout);
 
         var index = data[0].x.length-2;
         console.log("printing the historic data index, the last one");
         console.log(data[0].x.length[index]);
 
-        returnPeriods.graph_rp(reachid, data[0].x[0], data[0].x[index],width,height);
+        graph_rp(reachid, data[0].x[0], data[0].x[index],width,height,htmlELement);
         // getreturnperiods(reachid, data[0].x[0], data[0].x[index],width,height);
 
         dates.highres = [], dates.dates = [];

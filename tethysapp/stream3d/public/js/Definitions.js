@@ -26,25 +26,29 @@ function addContentToTabs (tab, tabContent){
       // divContainer.appendChild(buttonElement);
     }
 
-
-    var divContainer=document.getElementById(tabContent);
-    divContainer.style.display='block';
-
     //Define the content of the tab
     if(tabContent=='forecast'){
+
+      // Plotly.purge('forecast');
+
       graph_f(reachid,tabContent);
-      // document.getElementById ("download").addEventListener("click", function() {
-      //   geoglows.forecast.downloadData(reachid);
-      // } , false);
+
+      document.getElementById ("download").addEventListener("click", function() {
+        geoglows.forecast.downloadData(reachid);
+      } , false);
     }
     else if(tabContent=='historical'){
-      graph_h(reachid,tabContent);
+
+
+      graph_h(reachid,'forecast');
+
       // document.getElementById ("download").addEventListener("click", function() {
       //   geoglows.historical.downloadData(reachid);
       // } , false);
     }
     else if(tabContent=='seasonal'){
-      graph_s(reachid,tabContent);
+      graph_s(reachid,'forecast');
+
       // document.getElementById ("download").addEventListener("click", function() {
       //   geoglows.seasonal.downloadData(reachid);
       // } , false);
@@ -59,11 +63,7 @@ Date.prototype.addDays = function(days) {
     return date;
 };
 
-// function loadGeoJson(data) {
-//     console.log(data);
-//     geojsonDataFloods.addData(data);
-//     map.addLayer(geojsonDataFloods);
-// };
+
 
 function defineMapService (divContainer,basemap,globalLayer){
     var url="https://livefeeds2dev.arcgis.com/arcgis/rest/services/GEOGLOWS/GlobalWaterModel_Medium/MapServer";
@@ -77,8 +77,8 @@ function defineMapService (divContainer,basemap,globalLayer){
 
 
     $.getJSON(url+"?f=pjson", function(data) {
-        textents = data.timeInfo.timeExtent
-        tinterval = data.timeInfo.defaultTimeInterval
+        textents = data.timeInfo.timeExtent;
+        tinterval = data.timeInfo.defaultTimeInterval;
         // console.log(textents);
         // console.log(tinterval);
         // var timeExtent = new TimeExtent();
@@ -107,42 +107,69 @@ function defineMapService (divContainer,basemap,globalLayer){
           // specify popup options
           var tabs=document.createElement("div");
           tabs.setAttribute("id", "tabs");
+          // document.body.appendChild(tabs)
+          // console.log((document.getElementById("tabs")));
+          var htmlContentTabs = `<div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-secondary active">
+                <input type="radio" name="options" id="forecast2" autocomplete="off" checked> Forecast
+              </label>
+              <label class="btn btn-secondary">
+                <input type="radio" name="options" id="historical2" autocomplete="off"> Historical
+              </label>
+              <label class="btn btn-secondary">
+                <input type="radio" name="options" id="seasonal2" autocomplete="off"> Seasonal
+              </label>
+            </div>`;
 
-          var tabsList=document.createElement("ul");
+          // console.log($("#tabs"));
+          // $("#tabs").html(htmlContentTabs);
+
+          var tabsList=document.createElement("div");
           tabsList.setAttribute("id", "listTabs");
-          tabsList.style.display='block';
-
           tabs.appendChild(tabsList);
+          tabsList.style.cssText = "display: flex; flex-direction: row ; width:100% ; height: 100%; ";
 
-          var forecastTab=document.createElement("li");
+          // console.log($("#listTabs"));
+          // console.log(tabsList);
+
+          // console.log(tabsList);
+
+          var forecastTab=document.createElement("BUTTON");
           forecastTab.setAttribute("id", "forecast2");
           forecastTab.innerHTML = "Forecast";
+          forecastTab.style.cssText = "width:100% ; height: 100%; ";
+
           tabsList.appendChild(forecastTab);
 
 
-          var historicalTab=document.createElement("li");
+          var historicalTab=document.createElement("BUTTON");
           historicalTab.setAttribute("id", "historical2");
           historicalTab.innerHTML = "Historical";
+          historicalTab.style.cssText = "width:100% ; height: 100%; ";
 
           tabsList.appendChild(historicalTab);
 
-          var seasonalTab=document.createElement("li");
+          var seasonalTab=document.createElement("BUTTON");
           seasonalTab.setAttribute("id", "seasonal2");
-          seasonalTab.innerHTML="Seasonal"
+          seasonalTab.innerHTML="Seasonal";
+          seasonalTab.style.cssText = "width:100% ; height: 100%; ";
+
           tabsList.appendChild(seasonalTab);
 
+
+          // CONTENT //
 
           var forecastContent=document.createElement("div");
           forecastContent.setAttribute("id", "forecast");
           tabs.appendChild(forecastContent);
 
-          var historicalContent=document.createElement("div");
-          historicalContent.setAttribute("id", "historical");
-          tabs.appendChild(historicalContent);
-
-          var seasonalContent=document.createElement("div");
-          seasonalContent.setAttribute("id", "seasonal");
-          tabs.appendChild(seasonalContent);
+          // var historicalContent=document.createElement("div");
+          // historicalContent.setAttribute("id", "historical");
+          // tabs.appendChild(historicalContent);
+          //
+          // var seasonalContent=document.createElement("div");
+          // seasonalContent.setAttribute("id", "seasonal");
+          // tabs.appendChild(seasonalContent);
 
 
 
@@ -154,6 +181,17 @@ function defineMapService (divContainer,basemap,globalLayer){
           // divContainer.style.display='block';
 
           graph_f(reachid,"forecast");
+
+          // Added //
+
+          // historicalContent.style.display = "none";
+          // seasonalContent.style.display = "none";
+
+          // forecastContent.style.display = "inline";
+
+          // graph_h(reachid,"historical");
+          // graph_s(reachid,"seasonal");
+
           if( document.getElementById ("download") != null){
             console.log("remove button?");
             $("#download").remove();
@@ -170,9 +208,17 @@ function defineMapService (divContainer,basemap,globalLayer){
           // } , false);
 
           //add listeners//
+          // var forecastTab = document.getElementById("forecast2");
+          // console.log(forecastTab);
+          // var historicalTab = document.getElementById("historical2");
+          // console.log(historicalTab);
+          // var seasonalTab = document.getElementById("seasonal2");
+          // console.log(seasonalTab);
           addContentToTabs(forecastTab,"forecast" );
-          addContentToTabs(historicalTab,"historical");
-          addContentToTabs(seasonalTab,"seasonal");
+          addContentToTabs(historicalTab,"historical" );
+          addContentToTabs(seasonalTab,"seasonal" );
+          // addContentToTabs(historicalTab,"historical");
+          // addContentToTabs(seasonalTab,"seasonal");
           // L.DomEvent.stop(featureCollection);
           return tabs
         },{maxWidth: "auto"});
