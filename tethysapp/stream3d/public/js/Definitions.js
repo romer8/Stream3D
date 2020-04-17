@@ -84,6 +84,11 @@ function defineMapService (divContainer,basemap,globalLayer){
     // divContainer.appendChild(newMap);
     L.esri.basemapLayer(basemap).addTo(map);
 
+    var population_Layer = L.tileLayer.wms( "https://sedac.ciesin.columbia.edu/geoserver/wms", {
+      layers: 'popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp2-2050-total-population'
+    }).addTo(map);
+
+
 
     $.getJSON(url+"?f=pjson", function(data) {
         textents = data.timeInfo.timeExtent;

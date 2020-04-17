@@ -8,10 +8,17 @@
 {% endblock %}
 
 {% block app_navigation_items %}
-  <li class="title">Choose the Country to Visualize</li>
-  <li class="active"><a href="">Use dropdown</a></li>
-  <select id='countryList'>  </select>
-  <li class="active"><a href="">or Look Country in the Search Box</a></li>
+  <h3>Choose the Country</h3>
+  <p>Select a country to visualize using the dropdown or the search box to find the country that yu want. Once the
+    country is selected the map will change to show the country and the different countries will be painted black
+  </p>
+  <!-- <li class="active"><a href="">Use dropdown</a></li> -->
+  <button type="button" class="btn btn-primary" style = "width:100%">Use Dropdown</button>
+  <br></br>
+  <select  id='countryList'>  </select>
+  <br></br>
+  <button type="button" class="btn btn-primary" style = "width:100%">Look Country in the Search Box</button>
+
 
   <!--Make sure the form has the autocomplete function switched off:-->
   <form autocomplete="off" action="/action_page.php">
@@ -19,13 +26,30 @@
       <input id="myInput" type="text" name="myCountry" placeholder="Type Country">
     </div>
   </form>
-  {% url 'stream3d:home' as home_url %}
-  <li class="{% if request.path == home_url %}active{% endif %}"><a href="{{ home_url }}">Go Back</a></li>
 
-  <li class="title">Global Streams Layer Animation</li>
+  <h3>Streams Animation<h3>
   <p>The Leaflet Esri animation of the global streams can be animated with the following buttons.</p>
-  <button type="button" class="btn btn-info" id="startSlider"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-  <button type="button" class="btn btn-info" id="stopSlider"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
+  <div id = "buttonsAnimation">
+    <div class = "butts">
+      <button type="button" class="btn btn-info" id="startSlider"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+    </div>
+    <div class = "butts">
+      <button type="button" class="btn btn-info" id="stopSlider"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-primary" style = "margin-bottom:5%">SPPs Global Expectance Population va</button>
+  <select class="selectpicker" data-style="btn-info" data-width="100%">
+    <option> SSP2 population Projection for 2030 </option>
+    <option> SSP3 Population Projection for 230</option>
+  </select>
+
+
+  {% url 'stream3d:home' as home_url %}
+  <li class="{% if request.path == home_url %}active{% endif %}" style = "margin-top: 50%"><a href="{{ home_url }}">
+    <button type="button" class="btn btn-primary" style = "width:100%"> Go Back</button>
+  </a></li>
+
 {% endblock %}
 
 {% block app_content %}
