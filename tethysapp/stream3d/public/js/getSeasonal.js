@@ -46,33 +46,19 @@ function graph_s(reachid,htmlELement,add,width,height) {
           var data = [mean];
 
           var layout = {
+              autosize: true,
+
               // title: 'Historical Streamflow<br>'+titleCase(watershed) + ' Reach ID:' + comid,
               title: 'Seasonal Average StreamFlow<br>'+' Reach ID:' + reachid,
               width: width,
               height: height,
               xaxis: {title: 'Date'},
-              yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...data[0].y) + Math.max(...data[0].y)/5]},
+              yaxis: {title: 'Streamflow m3/s'},
               // plot_bgcolor:"#7782c5",
 
               //shapes: returnShapes,
           }
-          //Removing any exisisting element with the same name//
-          // var divELement=document.getElementById("graph");
-          // console.log("This is the divELement for the Seasonal");
-          // console.log(divELement);
-          // console.log("this is the add for the Seasonal");
-          // console.log(add);
-          // if(divELement !== null && add==false){
-          //   Plotly.purge(divELement);
-          //   divELement.remove();
-          // };
-          //
-          // divELement=document.createElement('div');
-          // divELement.setAttribute("id", "graph");
-          // divELementParent= document.getElementById(htmlELement);
-          // divELementParent.append(divELement);
 
-          // Plotly.newPlot('graph', data, layout);
           Plotly.purge(htmlELement);
           Plotly.newPlot(htmlELement, data, layout);
 
@@ -142,7 +128,7 @@ function downloadSeasonalData(reachid){
 function locationGraph_s (lat,lon,htmlELement,add, width,height){
     width = (typeof width !== 'undefined') ?  width : 500;
     height = (typeof heigth !== 'undefined') ?  heigth : 500;
-    add = (typeof width !== 'undefined') ?  width : false;
+    add = (typeof add !== 'undefined') ?  add : false;
 
     var layer_URL1=endpoint +"GetReachID/?lat="+lat+"&long="+lon;
     $.ajax({
@@ -189,18 +175,8 @@ function locationGraph_s (lat,lon,htmlELement,add, width,height){
                     //shapes: returnShapes,
                 }
                 //Removing any exisisting element with the same name//
-                var divELement=document.getElementById("graph");
-                if(divELement != null && add==false){
-                  Plotly.purge(divELement);
-                  divELement.remove();
-                };
-
-                divELement=document.createElement('div');
-                divELement.setAttribute("id", "graph");
-                divELementParent= document.getElementById(htmlELement);
-                divELementParent.append(divELement);
-
-                Plotly.newPlot('graph', data, layout);
+                Plotly.purge(htmlELement);
+                Plotly.newPlot(htmlELement, data, layout);
 
                 var index = data[0].x.length-1;
 

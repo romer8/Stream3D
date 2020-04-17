@@ -113,7 +113,7 @@ function graph_f (reachid,htmlELement,add, width,height){
              title:'Forecast<br>' + ' Reach ID: ' + reachid,
              xaxis: {title: 'Date'},
              //yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...values.max) + Math.max(...values.max)/5]},
-             yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...data[1].y) + Math.max(...data[1].y)/5]},
+             yaxis: {title: 'Streamflow m3/s'},
              //shapes: returnShapes,
          };
 
@@ -218,7 +218,7 @@ function locationGraph_f (lat,lon,htmlELement,add, width,height){
     console.log("entering locationGraph_f function");
     width = (typeof width !== 'undefined') ?  width : 500;
     height = (typeof heigth !== 'undefined') ?  heigth : 500;
-    add = (typeof width !== 'undefined') ?  width : false;
+    add = (typeof add !== 'undefined') ?  add : false;
 
     var layer_URL1=endpoint +"GetReachID/?lat="+lat+"&long="+lon;
     $.ajax({
@@ -320,33 +320,22 @@ function locationGraph_f (lat,lon,htmlELement,add, width,height){
                 data.push(highres)
             }
              var layout = {
+                 autosize: true,
                  width:width,
                  height:height,
                  title:'Forecast<br>' + ' Reach ID: ' + reachid,
                  xaxis: {title: 'Date'},
                  //yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...values.max) + Math.max(...values.max)/5]},
-                 yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...data[1].y) + Math.max(...data[1].y)/5]},
+                 // yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...data[1].y) + Math.max(...data[1].y)/5]},
+                 yaxis: {title: 'Streamflow m3/s'},
                  //shapes: returnShapes,
              };
 
              //Removing any exisisting element with the same name//
 
-             var divELement=document.getElementById("graph");
-             if(divELement != null && add==false){
-               Plotly.purge(divELement);
-               divELement.remove();
-               console.log("removing");
-             };
-             console.log(divELement);
-             console.log(add);
+             Plotly.purge(htmlELement);
+             Plotly.newPlot(htmlELement, data, layout);
 
-             divELement=document.createElement('div');
-             divELement.setAttribute("id", "graph");
-             divELementParent= document.getElementById(htmlELement);
-             divELementParent.append(divELement);
-
-
-             Plotly.newPlot('graph', data, layout);
              var index = data[0].x.length-1;
              // index=index.length;
 

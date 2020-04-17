@@ -62,6 +62,8 @@ function  graph_h(reachid,htmlELement,add,width,height) {
         var data = [mean];
 
         var layout = {
+            autosize: true,
+
             // title: 'Historical Streamflow<br>'+titleCase(watershed) + ' Reach ID:' + comid,
             title: 'Historical Streamflow<br>'+' Reach ID:' + reachid,
             width: width,
@@ -72,25 +74,7 @@ function  graph_h(reachid,htmlELement,add,width,height) {
             //shapes: returnShapes,
         }
         //Removing any exisisting element with the same name//
-        // var divELement=document.getElementById("graph");
 
-        // console.log("This is the divELement for the Historical");
-        // console.log(divELement);
-        // console.log("this is the add for the historical");
-        // console.log(add);
-        //
-        // if(divELement !== null && add==false){
-        //   Plotly.purge(divELement);
-        //   divELement.remove();
-        //   console.log("Removing the historical");
-        // };
-        //
-        // divELement=document.createElement('div');
-        // divELement.setAttribute("id", "graph");
-        // divELementParent= document.getElementById(htmlELement);
-        // divELementParent.append(divELement);
-
-        // Plotly.newPlot('graph', data, layout);
         Plotly.purge(htmlELement);
         Plotly.newPlot(htmlELement, data, layout);
 
@@ -220,18 +204,8 @@ function  graph_h(reachid,htmlELement,add,width,height) {
                   //shapes: returnShapes,
               }
               //Removing any exisisting element with the same name//
-              var divELement=document.getElementById("graph");
-              if(divELement != null && add==false){
-                Plotly.purge(divELement);
-                divELement.remove();
-              };
-
-              divELement=document.createElement('div');
-              divELement.setAttribute("id", "graph");
-              divELementParent= document.getElementById(htmlELement);
-              divELementParent.append(divELement);
-
-              Plotly.newPlot('graph', data, layout);
+              Plotly.purge(htmlELement);
+              Plotly.newPlot(htmlELement, data, layout);
 
               var index = data[0].x.length-2;
               console.log("printing the historic data index, the last one");
