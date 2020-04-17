@@ -3,12 +3,7 @@ var geoLayer
 var jsonCountries = getAllArray();
 var returnPeriodsProbs = getReturnPeriods();
 var retrunURL ="";
-// var geoJsonLayer=L.geoJson({}, {style: function(feature){
-//
-//     var fillColor=backgroundColor;
-//     return { color: "#999", weight: 2, fillColor: fillColor, fillOpacity: 1  };
-//   }
-// });
+
 //HELPERS FUNCTIONS///
 function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
 
@@ -28,18 +23,13 @@ function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
 
     //remove buttonElement or create Button
     if( document.getElementById ("download") != null){
-      console.log("remove button?");
       $("#download").remove();
-      console.log("jkgkjgkg");
       buttonElement1=document.createElement("button");
-      // buttonElement.innerHTML="Donwload Data";
       buttonElement1.setAttribute("id", "download");
       tabContentChart.appendChild(buttonElement1);
     }
     else{
-      console.log("hgjhg");
       buttonElement1=document.createElement("button");
-      // buttonElement.innerHTML="Donwload Data";
       buttonElement1.setAttribute("id", "download");
       tabContentChart.appendChild(buttonElement1);
     }
@@ -47,22 +37,9 @@ function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
     //Define the content of the tab
     if(tabContent=='forecast'){
 
-
-      // Plotly.purge('forecast');
-
       graph_f(reachid,tabContent);
-      // if(buttonElement !== undefined){
-      //   console.log("F");
-      //   buttonElement1.parentNode.removeChild(buttonElement);
-      // }
-      // var buttonElement=document.createElement("button");
-      buttonElement1.innerHTML="Donwload Forecast Data";
 
-      // tabContentChart.appendChild(buttonElement);
-      // buttonElement.removeEventListener("click",
-      //   downloadSeasonalData(reachid), false);
-      // buttonElement.removeEventListener("click",
-      //   downloadHistoricalData(reachid), false);
+      buttonElement1.innerHTML="Donwload Forecast Data";
 
       buttonElement1.addEventListener("click", _listenerf, true);
 
@@ -70,44 +47,20 @@ function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
     else if(tabContent=='historical'){
 
       graph_h(reachid,'forecast');
-      // if(buttonElement !== undefined){
-      //   buttonElement1.parentNode.removeChild(buttonElement);
-      //   console.log("H");
-      // }
-      // var buttonElement=document.createElement("button");
+
       buttonElement1.innerHTML="Donwload Historical Data";
 
-      // tabContentChart.appendChild(buttonElement);
-      // buttonElement.removeEventListener("click",
-      //   downloadSeasonalData(reachid), false);
-      // buttonElement.removeEventListener("click",
-      //   downloadForecastData(reachid), false);
-
       buttonElement1.addEventListener("click", _listenerh, true);
-      // buttonElement.addEventListener("click", function (event){
-      //       event.stopPropagation();
-      //   downloadHistoricalData(reachid);
-      // }, true);
+
     }
     else if(tabContent=='seasonal'){
       graph_s(reachid,'forecast');
-      // if(buttonElement !== undefined){
-      //   buttonElement1.parentNode.removeChild(buttonElement);
-      //   console.log("S");
-      // }
-      // var buttonElement=document.createElement("button");
+
       buttonElement1.innerHTML="Donwload Seasonal Data";
 
-      // tabContentChart.appendChild(buttonElement);
 
       buttonElement1.addEventListener("click", _listeners, true);
-      // buttonElement.removeEventListener("click",
-      //   downloadForecastData(reachid), false);
-      // buttonElement.removeEventListener("click",
-      //   downloadForecastData(reachid), false);
-      // buttonElement.addEventListener("click", function sd(){
-      //   downloadHistoricalData(reachid)
-      // }, false);
+
     }
   });
 
@@ -208,15 +161,6 @@ function defineMapService (divContainer,basemap,globalLayer){
           forecastContent.setAttribute("id", "forecast");
           tabs.appendChild(forecastContent);
 
-          // var historicalContent=document.createElement("div");
-          // historicalContent.setAttribute("id", "historical");
-          // tabs.appendChild(historicalContent);
-          //
-          // var seasonalContent=document.createElement("div");
-          // seasonalContent.setAttribute("id", "seasonal");
-          // tabs.appendChild(seasonalContent);
-
-
 
           //getting the COMID id from the stream reach//
           var option="COMID (Stream Identifier)"
@@ -228,14 +172,6 @@ function defineMapService (divContainer,basemap,globalLayer){
           graph_f(reachid,"forecast");
 
           // Added //
-
-          // historicalContent.style.display = "none";
-          // seasonalContent.style.display = "none";
-
-          // forecastContent.style.display = "inline";
-
-          // graph_h(reachid,"historical");
-          // graph_s(reachid,"seasonal");
 
           if( document.getElementById ("download") != null){
             console.log("remove button?");
@@ -250,24 +186,14 @@ function defineMapService (divContainer,basemap,globalLayer){
 
           forecastContent.appendChild(buttonElement);
           buttonElement.addEventListener("click", _listener,true);
-          // document.body.appendChild(buttonElement);
-          // document.getElementById ("download").addEventListener("click", function() {
-          //   geoglows.forecast.downloadData(reachid);
-          // } , false);
+
 
           //add listeners//
-          // var forecastTab = document.getElementById("forecast2");
-          // console.log(forecastTab);
-          // var historicalTab = document.getElementById("historical2");
-          // console.log(historicalTab);
-          // var seasonalTab = document.getElementById("seasonal2");
-          // console.log(seasonalTab);
+
           addContentToTabs(forecastTab,"forecast", buttonElement,forecastContent);
           addContentToTabs(historicalTab,"historical", buttonElement, forecastContent);
           addContentToTabs(seasonalTab,"seasonal", buttonElement, forecastContent);
-          // addContentToTabs(historicalTab,"historical");
-          // addContentToTabs(seasonalTab,"seasonal");
-          // L.DomEvent.stop(featureCollection);
+
           return tabs
         },{maxWidth: "auto"});
 
