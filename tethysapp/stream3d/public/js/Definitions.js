@@ -23,18 +23,25 @@ function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
   };
 
   tab.addEventListener("click", function (){
+    var buttonElement1;
     console.log("entering the forecast tab");
 
     //remove buttonElement or create Button
     if( document.getElementById ("download") != null){
       console.log("remove button?");
       $("#download").remove();
+      console.log("jkgkjgkg");
+      buttonElement1=document.createElement("button");
+      // buttonElement.innerHTML="Donwload Data";
+      buttonElement1.setAttribute("id", "download");
+      tabContentChart.appendChild(buttonElement1);
     }
     else{
-      // var buttonElement=document.createElement("button");
-      // buttonElement.innerHTML="Donwload Forecast Data";
-      // buttonElement.setAttribute("id", "download");
-      // divContainer.appendChild(buttonElement);
+      console.log("hgjhg");
+      buttonElement1=document.createElement("button");
+      // buttonElement.innerHTML="Donwload Data";
+      buttonElement1.setAttribute("id", "download");
+      tabContentChart.appendChild(buttonElement1);
     }
 
     //Define the content of the tab
@@ -44,38 +51,39 @@ function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
       // Plotly.purge('forecast');
 
       graph_f(reachid,tabContent);
-      if(buttonElement !== undefined){
-        buttonElement.parentNode.removeChild(buttonElement);
-      }
-      var buttonElement=document.createElement("button");
-      buttonElement.innerHTML="Donwload Forecast Data";
+      // if(buttonElement !== undefined){
+      //   console.log("F");
+      //   buttonElement1.parentNode.removeChild(buttonElement);
+      // }
+      // var buttonElement=document.createElement("button");
+      buttonElement1.innerHTML="Donwload Forecast Data";
 
-      tabContentChart.appendChild(buttonElement);
+      // tabContentChart.appendChild(buttonElement);
       // buttonElement.removeEventListener("click",
       //   downloadSeasonalData(reachid), false);
       // buttonElement.removeEventListener("click",
       //   downloadHistoricalData(reachid), false);
 
-      buttonElement.addEventListener("click", _listenerf, true);
+      buttonElement1.addEventListener("click", _listenerf, true);
 
     }
     else if(tabContent=='historical'){
 
       graph_h(reachid,'forecast');
-      if(buttonElement !== undefined){
-        buttonElement.parentNode.removeChild(buttonElement);
-      }
-      var buttonElement=document.createElement("button");
-      buttonElement.innerHTML="Donwload Historical Data";
+      // if(buttonElement !== undefined){
+      //   buttonElement1.parentNode.removeChild(buttonElement);
+      //   console.log("H");
+      // }
+      // var buttonElement=document.createElement("button");
+      buttonElement1.innerHTML="Donwload Historical Data";
 
-      tabContentChart.appendChild(buttonElement);
+      // tabContentChart.appendChild(buttonElement);
       // buttonElement.removeEventListener("click",
       //   downloadSeasonalData(reachid), false);
       // buttonElement.removeEventListener("click",
       //   downloadForecastData(reachid), false);
 
-      buttonElement.addEventListener("click", _listenerh, true);
-      console.log(buttonElement);
+      buttonElement1.addEventListener("click", _listenerh, true);
       // buttonElement.addEventListener("click", function (event){
       //       event.stopPropagation();
       //   downloadHistoricalData(reachid);
@@ -83,15 +91,16 @@ function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
     }
     else if(tabContent=='seasonal'){
       graph_s(reachid,'forecast');
-      if(buttonElement !== undefined){
-        buttonElement.parentNode.removeChild(buttonElement);
-      }
-      var buttonElement=document.createElement("button");
-      buttonElement.innerHTML="Donwload Seasonal Data";
+      // if(buttonElement !== undefined){
+      //   buttonElement1.parentNode.removeChild(buttonElement);
+      //   console.log("S");
+      // }
+      // var buttonElement=document.createElement("button");
+      buttonElement1.innerHTML="Donwload Seasonal Data";
 
-      tabContentChart.appendChild(buttonElement);
+      // tabContentChart.appendChild(buttonElement);
 
-      buttonElement.addEventListener("click", _listeners, true);
+      buttonElement1.addEventListener("click", _listeners, true);
       // buttonElement.removeEventListener("click",
       //   downloadForecastData(reachid), false);
       // buttonElement.removeEventListener("click",
