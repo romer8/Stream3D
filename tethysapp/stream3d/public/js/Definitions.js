@@ -3,7 +3,40 @@ var geoLayer
 var jsonCountries = getAllArray();
 var returnPeriodsProbs = getReturnPeriods();
 var retrunURL ="";
+var addLayerPop = $('#SSPmodel')[0];
+var population_Layer;
 
+addLayerPop.addEventListener("change",function(e){
+  console.log("I ma chanign layer");
+  if(e.target.value === "SSP2 Population Projection for 2030"){
+    if(population_Layer !==undefined){
+      map.removeLayer(population_Layer);
+      population_Layer = L.tileLayer.wms( "https://sedac.ciesin.columbia.edu/geoserver/wms", {
+        layers: 'popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp2-2050-total-population'
+      }).addTo(map);
+    }
+    else{
+      population_Layer = L.tileLayer.wms( "https://sedac.ciesin.columbia.edu/geoserver/wms", {
+        layers: 'popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp2-2050-total-population'
+      }).addTo(map);
+    }
+  }
+  if(e.target.value === "SSP3 Population Projection for 2030"){
+    if(population_Layer !==undefined){
+      map.removeLayer(population_Layer);
+      population_Layer = L.tileLayer.wms( "https://sedac.ciesin.columbia.edu/geoserver/wms", {
+        layers: 'popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp3-2050-total-population'
+      }).addTo(map);
+    }
+    else{
+      population_Layer = L.tileLayer.wms( "https://sedac.ciesin.columbia.edu/geoserver/wms", {
+        layers: 'popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp3-2050-total-population'
+      }).addTo(map);
+    }
+  }
+})
+
+console.log(addLayerPop);
 //HELPERS FUNCTIONS///
 function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
 
@@ -83,11 +116,6 @@ function defineMapService (divContainer,basemap,globalLayer){
     map.setView([0, 0], 3);
     // divContainer.appendChild(newMap);
     L.esri.basemapLayer(basemap).addTo(map);
-
-    var population_Layer = L.tileLayer.wms( "https://sedac.ciesin.columbia.edu/geoserver/wms", {
-      layers: 'popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp2-2050-total-population'
-    }).addTo(map);
-
 
 
     $.getJSON(url+"?f=pjson", function(data) {
