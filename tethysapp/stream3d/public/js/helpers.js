@@ -509,22 +509,22 @@ function changeGraphs(x1, y1, x2,y2, color1, color2){
 	 title: {
     text:'Risk Curve',
     font: {
-      family: 'Courier New, monospace',
+			family: 'sans-serif',
       // size: 24
     },
-    xref: 'paper',
+    // xref: 'paper',
     x: 0.05,
   },
-	xaxis: {
-     title: {
-       text: 'Return Periods',
-       font: {
-				 family: 'sans-serif',
-         size: 12,
-         color: '#7f7f7f'
-       }
-     },
-   },
+	// xaxis: {
+  //    title: {
+  //      text: 'Return Periods',
+  //      font: {
+	// 			 family: 'sans-serif',
+  //        size: 12,
+  //        color: '#7f7f7f'
+  //      }
+  //    },
+  //  },
    yaxis: {
      title: {
        text: 'Affected Variable',
@@ -551,7 +551,7 @@ function changeGraphs(x1, y1, x2,y2, color1, color2){
 	    borderwidth: 2
    },
    width:500,
-   height:300,
+   height:200,
    margin: {
      l: 40,
      r: 0,
