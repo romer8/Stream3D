@@ -167,7 +167,8 @@ document.addEventListener("click", function (e) {
 
 //slider //
 //slider Initialization and change in the output//
-let selectOptions = $('.selectpicker')[0];
+// let selectOptions = $('.selectpicker')[0];
+let selectOptions = document.getElementById("affectedVariable");
 var elements = document.getElementsByTagName('output')[0];
 var sliderUI = $('input[type="range"]')[0];
 sliderUI.addEventListener("change", function(e){
@@ -181,6 +182,7 @@ sliderUI.addEventListener("change", function(e){
 
 selectOptions.addEventListener("change",function(e){
   let valOptionSelected = e.target.value.toString();
+  console.log(valOptionSelected);
   let urlGeosJson = giveURL();
   retrieveDataMoney(urlGeosJson);
 

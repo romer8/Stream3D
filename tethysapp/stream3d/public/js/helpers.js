@@ -738,7 +738,8 @@ function retrieveDataMoney(urlGeosJson){
 
        let dataG = data2.features[0].properties;
        console.log(data2.features[0].properties);
-       let selectOptions = $('.selectpicker')[0];
+       // let selectOptions = $('.selectpicker')[0];
+       let selectOptions = document.getElementById("affectedVariable");
        let rootInitial = decideOption(selectOptions.value);
        console.log(rootInitial);
        var sliderUI = $('input[type="range"]')[1].value;

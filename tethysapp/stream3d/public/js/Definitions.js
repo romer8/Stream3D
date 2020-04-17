@@ -3,7 +3,7 @@ var geoLayer
 var jsonCountries = getAllArray();
 var returnPeriodsProbs = getReturnPeriods();
 var retrunURL ="";
-var addLayerPop = $('#SSPmodel')[0];
+var addLayerPop = document.getElementById("SSPmodel");
 var population_Layer;
 
 addLayerPop.addEventListener("change",function(e){
