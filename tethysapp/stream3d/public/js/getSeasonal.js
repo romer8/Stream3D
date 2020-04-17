@@ -52,8 +52,8 @@ function graph_s(reachid,htmlELement,add,width,height) {
               title: 'Seasonal Average StreamFlow<br>'+' Reach ID:' + reachid,
               width: width,
               height: height,
-              xaxis: {title: 'Date'},
-              yaxis: {title: 'Streamflow m3/s'},
+              xaxis: {title: 'Date',showgrid: false},
+              yaxis: {title: 'Streamflow m3/s',showgrid: false},
               // plot_bgcolor:"#7782c5",
 
               //shapes: returnShapes,
@@ -168,8 +168,8 @@ function locationGraph_s (lat,lon,htmlELement,add, width,height){
                 var layout = {
                     // title: 'Historical Streamflow<br>'+titleCase(watershed) + ' Reach ID:' + comid,
                     title: 'Seasonal Average StreamFlow<br>'+' Reach ID:' + reachid,
-                    xaxis: {title: 'Date'},
-                    yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...data[0].y) + Math.max(...data[0].y)/5]},
+                    xaxis: {title: 'Date', showgrid: false},
+                    yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...data[0].y) + Math.max(...data[0].y)/5], showgrid: false},
                     // plot_bgcolor:"#7782c5",
 
                     //shapes: returnShapes,

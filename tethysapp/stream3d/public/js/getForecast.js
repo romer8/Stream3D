@@ -111,9 +111,9 @@ function graph_f (reachid,htmlELement,add, width,height){
              width:width,
              height:height,
              title:'Forecast<br>' + ' Reach ID: ' + reachid,
-             xaxis: {title: 'Date'},
+             xaxis: {title: 'Date', showgrid: false},
              //yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...values.max) + Math.max(...values.max)/5]},
-             yaxis: {title: 'Streamflow m3/s'},
+             yaxis: {title: 'Streamflow m3/s', showgrid: false},
              //shapes: returnShapes,
          };
 
@@ -324,10 +324,10 @@ function locationGraph_f (lat,lon,htmlELement,add, width,height){
                  width:width,
                  height:height,
                  title:'Forecast<br>' + ' Reach ID: ' + reachid,
-                 xaxis: {title: 'Date'},
+                 xaxis: {title: 'Date',showgrid: false},
                  //yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...values.max) + Math.max(...values.max)/5]},
                  // yaxis: {title: 'Streamflow m3/s', range: [0, Math.max(...data[1].y) + Math.max(...data[1].y)/5]},
-                 yaxis: {title: 'Streamflow m3/s'},
+                 yaxis: {title: 'Streamflow m3/s', showgrid: false},
                  //shapes: returnShapes,
              };
 
