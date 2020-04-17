@@ -505,12 +505,13 @@ function changeGraphs(x1, y1, x2,y2, color1, color2){
  var data = [trace1, trace2];
  var layout = {
    autosize: true,
+	 showlegend:false,
    width:500,
    height:200,
    margin: {
      l: 30,
      r: 0,
-     b: 0,
+     b: 20,
      t: 0,
      pad: 2
    },
