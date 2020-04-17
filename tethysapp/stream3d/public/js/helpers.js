@@ -482,6 +482,7 @@ function changeGraphs(x1, y1, x2,y2, color1, color2){
      fill:'tonexty',
      type: 'scatter',
      fillcolor: color1,
+		 name: "Current Annual Expected Damage",
      line: {
        color: color1,
        shape:'spline'
@@ -494,6 +495,7 @@ function changeGraphs(x1, y1, x2,y2, color1, color2){
      fill: 'tozeroy',
      type: 'scatter',
      fillcolor: color2,
+		 name: "Current Annual Avoided Damage",
      line: {
        color: color2,
        shape:'spline'
@@ -504,16 +506,58 @@ function changeGraphs(x1, y1, x2,y2, color1, color2){
 
  var data = [trace1, trace2];
  var layout = {
+	 title: {
+    text:'Risk Curve',
+    font: {
+      family: 'Courier New, monospace',
+      // size: 24
+    },
+    xref: 'paper',
+    x: 0.05,
+  },
+	xaxis: {
+     title: {
+       text: 'Return Periods',
+       font: {
+				 family: 'sans-serif',
+         size: 12,
+         color: '#7f7f7f'
+       }
+     },
+   },
+   yaxis: {
+     title: {
+       text: 'Affected Variable',
+       font: {
+				 family: 'sans-serif',
+         size: 12,
+         color: '#7f7f7f'
+       }
+     }
+   },
    autosize: true,
-	 showlegend:false,
+	 showlegend:true,
+	 legend: {
+	    x: 1,
+	    y: 1,
+	    traceorder: 'normal',
+	    font: {
+	      family: 'sans-serif',
+	      size: 12,
+	      color: '#000'
+	    },
+	    bgcolor: '#E2E2E2',
+	    bordercolor: '#FFFFFF',
+	    borderwidth: 2
+   },
    width:500,
-   height:200,
+   height:300,
    margin: {
-     l: 30,
+     l: 40,
      r: 0,
      b: 20,
-     t: 0,
-     pad: 2
+     t: 70,
+     pad: 3
    },
  }
  Plotly.newPlot('plots', data,layout);
