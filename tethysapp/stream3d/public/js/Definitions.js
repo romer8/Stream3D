@@ -10,7 +10,18 @@ var retrunURL ="";
 //   }
 // });
 //HELPERS FUNCTIONS///
-function addContentToTabs (tab, tabContent){
+function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
+
+  var _listenerf = function(){
+      downloadForecastData(reachid)
+  };
+  var _listenerh = function(){
+      downloadHistoricalData(reachid)
+  };
+  var _listeners = function(){
+      downloadSeasonalData(reachid)
+  };
+
   tab.addEventListener("click", function (){
     console.log("entering the forecast tab");
 
@@ -29,29 +40,65 @@ function addContentToTabs (tab, tabContent){
     //Define the content of the tab
     if(tabContent=='forecast'){
 
+
       // Plotly.purge('forecast');
 
       graph_f(reachid,tabContent);
+      if(buttonElement !== undefined){
+        buttonElement.parentNode.removeChild(buttonElement);
+      }
+      var buttonElement=document.createElement("button");
+      buttonElement.innerHTML="Donwload Forecast Data";
 
-      document.getElementById ("download").addEventListener("click", function() {
-        geoglows.forecast.downloadData(reachid);
-      } , false);
+      tabContentChart.appendChild(buttonElement);
+      // buttonElement.removeEventListener("click",
+      //   downloadSeasonalData(reachid), false);
+      // buttonElement.removeEventListener("click",
+      //   downloadHistoricalData(reachid), false);
+
+      buttonElement.addEventListener("click", _listenerf, true);
+
     }
     else if(tabContent=='historical'){
 
-
       graph_h(reachid,'forecast');
+      if(buttonElement !== undefined){
+        buttonElement.parentNode.removeChild(buttonElement);
+      }
+      var buttonElement=document.createElement("button");
+      buttonElement.innerHTML="Donwload Historical Data";
 
-      // document.getElementById ("download").addEventListener("click", function() {
-      //   geoglows.historical.downloadData(reachid);
-      // } , false);
+      tabContentChart.appendChild(buttonElement);
+      // buttonElement.removeEventListener("click",
+      //   downloadSeasonalData(reachid), false);
+      // buttonElement.removeEventListener("click",
+      //   downloadForecastData(reachid), false);
+
+      buttonElement.addEventListener("click", _listenerh, true);
+      console.log(buttonElement);
+      // buttonElement.addEventListener("click", function (event){
+      //       event.stopPropagation();
+      //   downloadHistoricalData(reachid);
+      // }, true);
     }
     else if(tabContent=='seasonal'){
       graph_s(reachid,'forecast');
+      if(buttonElement !== undefined){
+        buttonElement.parentNode.removeChild(buttonElement);
+      }
+      var buttonElement=document.createElement("button");
+      buttonElement.innerHTML="Donwload Seasonal Data";
 
-      // document.getElementById ("download").addEventListener("click", function() {
-      //   geoglows.seasonal.downloadData(reachid);
-      // } , false);
+      tabContentChart.appendChild(buttonElement);
+
+      buttonElement.addEventListener("click", _listeners, true);
+      // buttonElement.removeEventListener("click",
+      //   downloadForecastData(reachid), false);
+      // buttonElement.removeEventListener("click",
+      //   downloadForecastData(reachid), false);
+      // buttonElement.addEventListener("click", function sd(){
+      //   downloadHistoricalData(reachid)
+      // }, false);
     }
   });
 
@@ -109,17 +156,6 @@ function defineMapService (divContainer,basemap,globalLayer){
           tabs.setAttribute("id", "tabs");
           // document.body.appendChild(tabs)
           // console.log((document.getElementById("tabs")));
-          var htmlContentTabs = `<div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-secondary active">
-                <input type="radio" name="options" id="forecast2" autocomplete="off" checked> Forecast
-              </label>
-              <label class="btn btn-secondary">
-                <input type="radio" name="options" id="historical2" autocomplete="off"> Historical
-              </label>
-              <label class="btn btn-secondary">
-                <input type="radio" name="options" id="seasonal2" autocomplete="off"> Seasonal
-              </label>
-            </div>`;
 
           // console.log($("#tabs"));
           // $("#tabs").html(htmlContentTabs);
@@ -196,13 +232,16 @@ function defineMapService (divContainer,basemap,globalLayer){
             console.log("remove button?");
             $("#download").remove();
           };
-
+          var _listener = function(){
+              downloadForecastData(reachid)
+          };
           var buttonElement=document.createElement("button");
           buttonElement.innerHTML="Donwload Forecast Data";
           buttonElement.setAttribute("id", "download");
+
           forecastContent.appendChild(buttonElement);
-
-
+          buttonElement.addEventListener("click", _listener,true);
+          // document.body.appendChild(buttonElement);
           // document.getElementById ("download").addEventListener("click", function() {
           //   geoglows.forecast.downloadData(reachid);
           // } , false);
@@ -214,9 +253,9 @@ function defineMapService (divContainer,basemap,globalLayer){
           // console.log(historicalTab);
           // var seasonalTab = document.getElementById("seasonal2");
           // console.log(seasonalTab);
-          addContentToTabs(forecastTab,"forecast" );
-          addContentToTabs(historicalTab,"historical" );
-          addContentToTabs(seasonalTab,"seasonal" );
+          addContentToTabs(forecastTab,"forecast", buttonElement,forecastContent);
+          addContentToTabs(historicalTab,"historical", buttonElement, forecastContent);
+          addContentToTabs(seasonalTab,"seasonal", buttonElement, forecastContent);
           // addContentToTabs(historicalTab,"historical");
           // addContentToTabs(seasonalTab,"seasonal");
           // L.DomEvent.stop(featureCollection);
