@@ -347,6 +347,7 @@ function locationGraph_f (lat,lon,htmlELement,add, width,height){
              //   console.log(data[0].x[i]);
              //
              // };
+             graph_rp(reachid, data[0].x[0], data[0].x[index],width,height,htmlELement);
 
              // returnPeriods.graph_rp(reachid, data[0].x[0], data[0].x[index],width,height);
              // getreturnperiods(reachid, data[0].x[0], data[0].x[index],width,height);
