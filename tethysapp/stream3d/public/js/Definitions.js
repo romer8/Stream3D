@@ -7,32 +7,85 @@ var addLayerPop = document.getElementById("SSPmodel");
 var population_Layer;
 
 addLayerPop.addEventListener("change",function(e){
-  console.log("I ma chanign layer");
+  var legendsWms= Array.from(document.getElementsByClassName("leaflet-control-wms-legend"))[0];
   if(e.target.value === "SSP2 Population Projection for 2030"){
+    var layerGeo = "popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp2-2050-total-population";
     if(population_Layer !==undefined){
       map.removeLayer(population_Layer);
       population_Layer = L.tileLayer.wms( "https://sedac.ciesin.columbia.edu/geoserver/wms", {
         layers: 'popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp2-2050-total-population'
       }).addTo(map);
+      if(legendsWms !==undefined){
+        legendsWms.parentElement.removeChild(legendsWms);
+        var uri = `https://sedac.ciesin.columbia.edu/geoserver/wms?REQUEST=GetLegendGraphic&FORMAT=image/jpeg&LAYER=${layerGeo}&STYLE=`;
+        L.wmsLegend(uri);
+      }
+      if(legendsWms ==undefined){
+        var uri = `https://sedac.ciesin.columbia.edu/geoserver/wms?REQUEST=GetLegendGraphic&FORMAT=image/jpeg&LAYER=${layerGeo}&STYLE=`;
+        L.wmsLegend(uri);
+      }
+
     }
     else{
       population_Layer = L.tileLayer.wms( "https://sedac.ciesin.columbia.edu/geoserver/wms", {
         layers: 'popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp2-2050-total-population'
       }).addTo(map);
+      if(legendsWms !==undefined){
+        legendsWms.parentElement.removeChild(legendsWms);
+        var uri = `https://sedac.ciesin.columbia.edu/geoserver/wms?REQUEST=GetLegendGraphic&FORMAT=image/jpeg&LAYER=${layerGeo}&STYLE=`;
+        L.wmsLegend(uri);
+      }
+      if(legendsWms ==undefined){
+        var uri = `https://sedac.ciesin.columbia.edu/geoserver/wms?REQUEST=GetLegendGraphic&FORMAT=image/jpeg&LAYER=${layerGeo}&STYLE=`;
+        L.wmsLegend(uri);
+      }
     }
   }
   if(e.target.value === "SSP3 Population Projection for 2030"){
+    var layerGeo = "popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp3-2050-total-population";
+
     if(population_Layer !==undefined){
       map.removeLayer(population_Layer);
       population_Layer = L.tileLayer.wms( "https://sedac.ciesin.columbia.edu/geoserver/wms", {
         layers: 'popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp3-2050-total-population'
       }).addTo(map);
+      if(legendsWms !==undefined){
+        legendsWms.parentElement.removeChild(legendsWms);
+        var uri = `https://sedac.ciesin.columbia.edu/geoserver/wms?REQUEST=GetLegendGraphic&FORMAT=image/jpeg&LAYER=${layerGeo}&STYLE=`;
+        L.wmsLegend(uri);
+      }
+      if(legendsWms == undefined){
+        var uri = `https://sedac.ciesin.columbia.edu/geoserver/wms?REQUEST=GetLegendGraphic&FORMAT=image/jpeg&LAYER=${layerGeo}&STYLE=`;
+        L.wmsLegend(uri);
+      }
+
     }
     else{
       population_Layer = L.tileLayer.wms( "https://sedac.ciesin.columbia.edu/geoserver/wms", {
         layers: 'popdynamics:popdynamics-pop-projection-ssp-2010-2100_ssp3-2050-total-population'
       }).addTo(map);
+      if(legendsWms !==undefined){
+        legendsWms.parentElement.removeChild(legendsWms);
+        var uri = `https://sedac.ciesin.columbia.edu/geoserver/wms?REQUEST=GetLegendGraphic&FORMAT=image/jpeg&LAYER=${layerGeo}&STYLE=`;
+        L.wmsLegend(uri);
+      }
+      if(legendsWms == undefined){
+        var uri = `https://sedac.ciesin.columbia.edu/geoserver/wms?REQUEST=GetLegendGraphic&FORMAT=image/jpeg&LAYER=${layerGeo}&STYLE=`;
+        L.wmsLegend(uri);
+      }
+
+
     }
+  }
+  if(e.target.value === "No Model SSPSs Model"){
+    console.log("choquiro");
+    if(population_Layer !==undefined){
+      map.removeLayer(population_Layer);
+    }
+    if(legendsWms !==undefined){
+      legendsWms.parentElement.removeChild(legendsWms);
+    }
+
   }
 })
 
