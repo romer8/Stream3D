@@ -337,20 +337,9 @@ function locationGraph_f (lat,lon,htmlELement,add, width,height){
              Plotly.newPlot(htmlELement, data, layout);
 
              var index = data[0].x.length-1;
-             // index=index.length;
 
-             // console.log("printing indexes");
-             // console.log(data[0].x[0]);
-             // console.log(data[0].x[index]);
-             // for(var i=0; i<data[0].x.length;i++){
-             //   console.log(i);
-             //   console.log(data[0].x[i]);
-             //
-             // };
              graph_rp(reachid, data[0].x[0], data[0].x[index],width,height,htmlELement);
 
-             // returnPeriods.graph_rp(reachid, data[0].x[0], data[0].x[index],width,height);
-             // getreturnperiods(reachid, data[0].x[0], data[0].x[index],width,height);
 
              dates.highres = [], dates.dates = [];
              values.highres = [], values.max = [], values.mean = [], values.min = [], values.std_dev_range_lower = [], values.std_dev_range_upper = [];
