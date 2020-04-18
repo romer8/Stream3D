@@ -180,6 +180,12 @@ function defineMapService (divContainer,basemap,globalLayer){
         console.log("this is to know the true start time");
         startTime=new Date(textents[0]);
         endTime= new Date(textents[1]);
+        let strStart =startTime.getMonth() + 1 + "/" + startTime.getDate() + "/" + startTime.getFullYear();
+        let strEnd = endTime.getMonth() + 1 + "/" + endTime.getDate() + "/" + endTime.getFullYear();
+        let showTimeXD = document.getElementById("CurrentTimeExtent");
+        let actualTimeDiv = document.getElementById ("actualDate");
+        actualDate.innerHTML = strStart;
+        showTimeXD.innerHTML = `${strStart} - ${strEnd}`;
         console.log(startTime);
         console.log("this is to know the true end time");
         console.log(endTime);
@@ -367,6 +373,9 @@ function defineMapService (divContainer,basemap,globalLayer){
             console.log(start);
             console.log("this is the actual time");
             console.log(actualTime);
+            let newCurrentVal =start.getMonth() + 1 + "/" + start.getDate() + "/" + start.getFullYear();
+            actualTimeDiv.innerHTML = newCurrentVal;
+
             //CHANGE THE CONFIGURATION//
             sliderControl._container.setAttribute("min",start);
             sliderControl._container.setAttribute("value",actualTime);
