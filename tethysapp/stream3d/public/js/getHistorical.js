@@ -142,7 +142,7 @@ function  graph_h(reachid,htmlELement,add,width,height) {
   function locationGraph_h (lat,lon,htmlELement,add, width,height){
     width = (typeof width !== 'undefined') ?  width : 500;
     height = (typeof heigth !== 'undefined') ?  heigth : 500;
-    add = (typeof width !== 'undefined') ?  width : false;
+    add = (typeof add !== 'undefined') ?  add : false;
 
     var layer_URL1=endpoint +"GetReachID/?lat="+lat+"&long="+lon;
     $.ajax({
