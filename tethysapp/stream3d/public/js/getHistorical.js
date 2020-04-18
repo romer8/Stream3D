@@ -211,7 +211,7 @@ function  graph_h(reachid,htmlELement,add,width,height) {
               console.log("printing the historic data index, the last one");
               console.log(data[0].x.length[index]);
 
-              returnPeriods.graph_rp(reachid, data[0].x[0], data[0].x[index],width,height);
+              returnPeriods.graph_rp(reachid, data[0].x[0], data[0].x[index],width,height,htmlELement);
               // getreturnperiods(reachid, data[0].x[0], data[0].x[index],width,height);
 
               dates.highres = [], dates.dates = [];
