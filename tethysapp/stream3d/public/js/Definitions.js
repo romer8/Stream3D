@@ -6,6 +6,7 @@ var retrunURL ="";
 var addLayerPop = document.getElementById("SSPmodel");
 var population_Layer;
 
+
 addLayerPop.addEventListener("change",function(e){
   var legendsWms= Array.from(document.getElementsByClassName("leaflet-control-wms-legend"))[0];
   if(e.target.value === "SSP2 Population Projection for 2030"){
@@ -94,13 +95,13 @@ console.log(addLayerPop);
 function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
 
   var _listenerf = function(){
-      downloadForecastData(reachid)
+      FORECAST.downloadData(reachid);
   };
   var _listenerh = function(){
-      downloadHistoricalData(reachid)
+      HISTORICAL.downloadData(reachid);
   };
   var _listeners = function(){
-      downloadSeasonalData(reachid)
+      SEASONAL.downloadData(reachid);
   };
 
   tab.addEventListener("click", function (){
@@ -122,31 +123,19 @@ function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
 
     //Define the content of the tab
     if(tabContent=='forecast'){
-
-      graph_f(reachid,tabContent);
-
+      FORECAST.graph_f(reachid,tabContent);
       buttonElement1.innerHTML="Donwload Forecast Data";
-
       buttonElement1.addEventListener("click", _listenerf, true);
-
     }
     else if(tabContent=='historical'){
-
-      graph_h(reachid,'forecast');
-
+      HISTORICAL.graph_h(reachid,'forecast');
       buttonElement1.innerHTML="Donwload Historical Data";
-
       buttonElement1.addEventListener("click", _listenerh, true);
-
     }
     else if(tabContent=='seasonal'){
-      graph_s(reachid,'forecast');
-
+      SEASONAL.graph_s(reachid,'forecast');
       buttonElement1.innerHTML="Donwload Seasonal Data";
-
-
       buttonElement1.addEventListener("click", _listeners, true);
-
     }
   });
 
@@ -208,21 +197,12 @@ function defineMapService (divContainer,basemap,globalLayer){
           // specify popup options
           var tabs=document.createElement("div");
           tabs.setAttribute("id", "tabs");
-          // document.body.appendChild(tabs)
-          // console.log((document.getElementById("tabs")));
-
-          // console.log($("#tabs"));
-          // $("#tabs").html(htmlContentTabs);
 
           var tabsList=document.createElement("div");
           tabsList.setAttribute("id", "listTabs");
           tabs.appendChild(tabsList);
           tabsList.style.cssText = "display: flex; flex-direction: row ; width:100% ; height: 100%; ";
 
-          // console.log($("#listTabs"));
-          // console.log(tabsList);
-
-          // console.log(tabsList);
 
           var forecastTab=document.createElement("BUTTON");
           forecastTab.setAttribute("id", "forecast2");
@@ -259,9 +239,7 @@ function defineMapService (divContainer,basemap,globalLayer){
           reachid=featureCollection.features[0].properties[option];
           console.log(reachid);
 
-          // divContainer.style.display='block';
-
-          graph_f(reachid,"forecast");
+          FORECAST.graph_f(reachid,"forecast");
 
           // Added //
 
@@ -270,7 +248,7 @@ function defineMapService (divContainer,basemap,globalLayer){
             $("#download").remove();
           };
           var _listener = function(){
-              downloadForecastData(reachid)
+              FORECAST.downloadData(reachid);
           };
           var buttonElement=document.createElement("button");
           buttonElement.innerHTML="Donwload Forecast Data";
