@@ -2,9 +2,7 @@
 
 var basemap="Gray";
 var globalLayer;
-// var stream="7000002";
-// var lat="37.17293431";
-// var long="9.760442195";
+
 var mapContainer="map";
 var backgroundColor="#000000";
 var countries=["select country","global"];
@@ -51,7 +49,6 @@ $('#countryList').append(option);
 //ADDING THE CLICK EVENT TO THE DROPDOWN MENU, SO ONE CAN SELECT IT//
 $('#countryList').on("click change", function(e){
     e.preventDefault();
-    console.log(e);
     var country=e.target.text;
     if(typeof (e.target.text) != 'undefined'){
       chooseCountry(country,backgroundColor);
@@ -99,7 +96,6 @@ function autocomplete(inp, arr) {
               /*insert the value for the autocomplete text field:*/
               inp.value = this.getElementsByTagName("input")[0].value;
               chooseCountry(inp.value,backgroundColor);
-              console.log(inp.value);
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
@@ -167,7 +163,6 @@ document.addEventListener("click", function (e) {
 
 //slider //
 //slider Initialization and change in the output//
-// let selectOptions = $('.selectpicker')[0];
 let selectOptions = document.getElementById("affectedVariable");
 var elements = document.getElementsByTagName('output')[0];
 var sliderUI = $('input[type="range"]')[0];
@@ -182,7 +177,6 @@ sliderUI.addEventListener("change", function(e){
 
 selectOptions.addEventListener("change",function(e){
   let valOptionSelected = e.target.value.toString();
-  console.log(valOptionSelected);
   let urlGeosJson = giveURL();
   retrieveDataMoney(urlGeosJson);
 

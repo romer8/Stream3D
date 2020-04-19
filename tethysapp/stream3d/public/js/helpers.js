@@ -280,15 +280,11 @@ function makeArray(ini, objectRequest){
 
   let finalObject = createObject2(ini);
   finalObjectArray = Object.keys(finalObject);
-  // console.log(finalObjectArray);
   let arrayValues=[];
 
   finalObjectArray.forEach(function(e){
     arrayValues.push(objectRequest[e])
-    // finalObject[e] = objectRequest[e];
   })
-  // console.log(finalObject);
-  console.log(arrayValues);
   return arrayValues;
 
 }
@@ -322,21 +318,6 @@ let arrayTrans = {
 function getArrayTrans(){
   return arrayTrans;
 }
-
-// //slider Initialization and change in the output//
-// var elements = document.getElementsByTagName('output')[0];
-// console.log(elements);
-// var sliderUI = $('input[type="range"]')[0];
-// sliderUI.addEventListener("change", function(e){
-//   console.log(sliderUI);
-//   let valSLider = e.target.value.toString();
-//   let newVal = arrayTrans[valSLider];
-//   console.log(newVal);
-//   elements.innerHTML = newVal;
-//   // let objtValuesSplit = splitArrays(g10_bh,e.target.value);
-//   // let objReturnSplit = splitArrays(xValuesRP , e.target.value);
-//
-// })
 
 // change the plot //
 function splitArrays(arr, val){
@@ -515,16 +496,7 @@ function changeGraphs(x1, y1, x2,y2, color1, color2){
     // xref: 'paper',
     x: 0.05,
   },
-	// xaxis: {
-  //    title: {
-  //      text: 'Return Periods',
-  //      font: {
-	// 			 family: 'sans-serif',
-  //        size: 12,
-  //        color: '#7f7f7f'
-  //      }
-  //    },
-  //  },
+
    yaxis: {
      title: {
        text: 'Affected Variable',
@@ -568,31 +540,22 @@ function changeGraphs(x1, y1, x2,y2, color1, color2){
 //function to integrate one part //
 function integrateOnePart (x1,x2,y1,y2){
   let integration_ = (( x2 - x1 ) * ( y1 + y2 )) / 2;
-  // console.log(integration_);
   return integration_;
 }
 
 // function to iterate and integrate //
 function integrationWhole(arr1, arr2){
   let sumTotal = 0;
-  // console.log("total iterations");
-  // console.log(arr1.length);
+
   for(let i=0; i< arr1.length ; ++i){
     if(i+1 <arr1.length){
-      // console.log("this is the iteration");
-      // console.log(i);
+
       let x2 = arr1[i];
-      // console.log(x2);
       let x1 = arr1[i+1];
-      // console.log(x1);
       let y2 = arr2[i];
-      // console.log(y2);
       let y1 = arr2[i+1];
-      // console.log(y1);
       let integra_ = integrateOnePart(x1,x2,y1,y2);
-      // console.log("This is the sum");
       sumTotal = sumTotal +integra_;
-      // console.log(sumTotal);
     }
 
   }
@@ -674,9 +637,7 @@ function makeWaterFallChart(arr, divElementString){
           }
       ];
   var layout = {
-          // title: {
-          //     text: "Profit and loss statement 2018<br>waterfall chart displaying positive and negative"
-          // },
+
           waterfallgap : 150,
           yaxis: {
               type: "category",
@@ -708,7 +669,6 @@ function makesLessThanZero(x){
   let y = x ;
   if(x< 0 ){
     y = 0;
-    console.log("soy negativo");
   }
   return y;
 }
@@ -737,13 +697,10 @@ function retrieveDataMoney(urlGeosJson){
      success: function(data2){
 
        let dataG = data2.features[0].properties;
-       console.log(data2.features[0].properties);
        // let selectOptions = $('.selectpicker')[0];
        let selectOptions = document.getElementById("affectedVariable");
        let rootInitial = decideOption(selectOptions.value);
-       console.log(rootInitial);
        var sliderUI = $('input[type="range"]')[1].value;
-       console.log($('input[type="range"]'));
 
        let x10_bh = makeArray(`${rootInitial}10_bh`,dataG);
        let x30_24 = makeArray(`${rootInitial}30_24`,dataG);
@@ -767,10 +724,6 @@ function retrieveDataMoney(urlGeosJson){
 
        let splitXvaluesRP = splitArrays(xValuesRP,sliderUI);
 
-       console.log(xValuesRP);
-       console.log(x10_bh);
-       console.log(splitx10_bh);
-       console.log(splitXvaluesRP);
        changeGraphs(splitXvaluesRP['first'],splitx10_bh['first'],splitXvaluesRP['second'],splitx10_bh['second'],'#5531B7','#0A0A0A')
        // Now we have to define the values in the right part //
        let firstIntegration = integrationWhole(splitXvaluesRP['first'],splitx10_bh['first']);
@@ -790,14 +743,6 @@ function retrieveDataMoney(urlGeosJson){
        let firstIntegration30_38 = integrationWhole(splitXvaluesRP['first'],splitx30_38['first']);
        let secondIntegration30_38 = integrationWhole(splitXvaluesRP['second'],splitx30_38['second']);
 
-       console.log("this is the xurrent");
-       console.log(secondIntegration);
-       console.log("this is more socio");
-       console.log(secondIntegration30_2h);
-       console.log("this is the climate");
-       console.log(secondIntegration30_b4);
-       console.log("this is the 30 expectancy");
-       console.log(secondIntegration30_24);
 
        annualDamageA.innerHTML = `$ ${ abbreviateNumber(secondIntegration,2)}`;
        annualAvoidedDamageA.innerHTML = `$ ${ abbreviateNumber(firstIntegration,2)}`;
