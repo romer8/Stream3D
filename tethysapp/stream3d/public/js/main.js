@@ -50,6 +50,7 @@ $('#countryList').append(option);
 $('#countryList').on("click change", function(e){
     e.preventDefault();
     var country=e.target.text;
+    console.log(e.target);
     if(typeof (e.target.text) != 'undefined'){
       chooseCountry(country,backgroundColor);
 
