@@ -29,6 +29,13 @@ body {
 
   margin-left: 25%;
 }
+.listpoints{
+  font-size: 14px;
+  color: #666;
+  font-weight: 400;
+  letter-spacing: .5px;
+  font-weight: bold;
+}
 #flood_risk{
   flex:1 1 40%;
   width: 100%;
