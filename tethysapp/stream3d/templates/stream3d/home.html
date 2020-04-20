@@ -1,5 +1,6 @@
 {% extends "stream3d/base.html" %}
 {% load tethys_gizmos %}
+{% load static %}
 
 {% block header_buttons %}
   <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
@@ -42,16 +43,31 @@
        <li>GEOGLOWS Streamflow Services API</li>
        <p> The data used from the API will be used to retrieve forecast, historical, and flow curve data, and it will be proccessed into a CDN javascript library, so it will
        be easy to jsut graph the current forecast of a given stream if the id of the stream reach is given. Three graphs will be given for forecast, historical, and flow rate curve, respectively
-       as a result, implementations for graphs a pie chart containing a distribution of the different return periods in the reach of teh stream can be also created for future work.
-     </p>
+       as a result, implementations for graphs a pie chart containing a distribution of the different return periods in the reach of teh stream can be also created for future work. The nice part of this
+       CDN is that it is using the UNPKG service which makes CDNs from NPM packages, so it is a free service that delivers the functions of the GEOGLOWS API. However, only graphs are retrieved from these functions because
+       the asynchronous nature of javascript does not allows to retrieve the data from the images to parts of the code. The CDN package tries to give the user the ability to download the data for
+       forecast, historical and seasonal data. The CDN package can be used with the folowing link and the geoglows endpoint as well. </p>
+
+       <a class="sbulletpoints" href="https://unpkg.com/geoglows@1.0.10/dist/geoglows.min.js"> GEOGLOWS CDN </a><br>
+       <a class="sbulletpoints" href="https://tethys2.byu.edu/localsptapi/api/"> GEOGLOWS API ENPOINT </a> <br><br>
+
        <li> Aqueduct Global Flood Risk Maps WRI Data Set</li>
        <p>
          The data of the WRI contains two different values: one of the current scenario and another for future projections. Each one of these scenarios gives information about the
          urban damage, affected GDP, and affectefd population taking into account two important factors: socio-economic change and climate change. In other words, the dataset helps to Visualize
-         the affected urban area, GDP, and population, and it also gives the percentage of the damage that is part of socio-econmic or climate change factors.
+         the affected urban area, GDP, and population, and it also gives the percentage of the damage that is part of socio-econmic or climate change factors. The link to the used dataset is below,
+         only the country dataset was used, and the data by river basin and state can be used for a future work.
        </p>
-   </ul>
-</div>
+       <a class="sbulletpoints" href="http://datasets.wri.org/dataset/aqueduct-global-flood-risk-maps">AQUEDUCT GLOBAL FLOOD RISK DATASET  </a> <br><br>
+
+     </ul>
+   </div>
+   <div id="logosLine">
+     <img src="{% static 'stream3d/images/wrilogo.png' %}" alt="home img 04" height = "100px" width = "200px">
+     <img src="{% static 'stream3d/images/geoglowslogo.png' %}" alt="home img 04" height = "100px" width = "200px">
+     <img src="{% static 'stream3d/images/npmlogo2.png' %}" alt="home img 04" height = "100px" width = "200px">
+   </div>
+
 
 {% endblock %}
 

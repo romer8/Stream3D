@@ -21,6 +21,14 @@ body {
 .instructionWrapper{
   padding: 2% 2% 2% 2%;
 }
+
+.sbulletpoints{
+  font-weight: bold;
+}
+#logosLine{
+
+  margin-left: 25%;
+}
 #flood_risk{
   flex:1 1 40%;
   width: 100%;
