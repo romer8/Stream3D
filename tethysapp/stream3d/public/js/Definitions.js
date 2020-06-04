@@ -90,49 +90,21 @@ addLayerPop.addEventListener("change",function(e){
 })
 
 //HELPERS FUNCTIONS///
-function addContentToTabs (tab, tabContent, buttonElement, tabContentChart){
+function addContentToTabs (tab, tabContent, tabContentChart){
 
-  var _listenerf = function(){
-      FORECAST.downloadData(reachid);
-  };
-  var _listenerh = function(){
-      HISTORICAL.downloadData(reachid);
-  };
-  var _listeners = function(){
-      SEASONAL.downloadData(reachid);
-  };
 
   tab.addEventListener("click", function (){
-    var buttonElement1;
-
-    //remove buttonElement or create Button
-    if( document.getElementById ("download") != null){
-      $("#download").remove();
-      buttonElement1=document.createElement("button");
-      buttonElement1.setAttribute("id", "download");
-      tabContentChart.appendChild(buttonElement1);
-    }
-    else{
-      buttonElement1=document.createElement("button");
-      buttonElement1.setAttribute("id", "download");
-      tabContentChart.appendChild(buttonElement1);
-    }
 
     //Define the content of the tab
     if(tabContent=='forecast'){
-      FORECAST.graph_f(reachid,tabContent);
-      buttonElement1.innerHTML="Donwload Forecast Data";
-      buttonElement1.addEventListener("click", _listenerf, true);
+      GEOGLOWS.forecast.graph_stats(reachid,tabContent,undefined,true);
     }
     else if(tabContent=='historical'){
-      HISTORICAL.graph_h(reachid,'forecast');
-      buttonElement1.innerHTML="Donwload Historical Data";
-      buttonElement1.addEventListener("click", _listenerh, true);
+      GEOGLOWS.historical.graph(reachid,'forecast', undefined,true);
     }
     else if(tabContent=='seasonal'){
-      SEASONAL.graph_s(reachid,'forecast');
-      buttonElement1.innerHTML="Donwload Seasonal Data";
-      buttonElement1.addEventListener("click", _listeners, true);
+      GEOGLOWS.seasonal.graph(reachid,'forecast', undefined);
+
     }
   });
 
@@ -224,29 +196,14 @@ function defineMapService (divContainer,basemap,globalLayer){
           var option="COMID (Stream Identifier)"
           reachid=featureCollection.features[0].properties[option];
 
-          FORECAST.graph_f(reachid,"forecast");
-
-          // Added //
-
-          if( document.getElementById ("download") != null){
-            $("#download").remove();
-          };
-          var _listener = function(){
-              FORECAST.downloadData(reachid);
-          };
-          var buttonElement=document.createElement("button");
-          buttonElement.innerHTML="Donwload Forecast Data";
-          buttonElement.setAttribute("id", "download");
-
-          forecastContent.appendChild(buttonElement);
-          buttonElement.addEventListener("click", _listener,true);
+          GEOGLOWS.forecast.graph_stats(reachid,"forecast",undefined,true);
 
 
           //add listeners//
 
-          addContentToTabs(forecastTab,"forecast", buttonElement,forecastContent);
-          addContentToTabs(historicalTab,"historical", buttonElement, forecastContent);
-          addContentToTabs(seasonalTab,"seasonal", buttonElement, forecastContent);
+          addContentToTabs(forecastTab,"forecast",forecastContent);
+          addContentToTabs(historicalTab,"historical", forecastContent);
+          addContentToTabs(seasonalTab,"seasonal", forecastContent);
 
           return tabs
         },{maxWidth: "auto"});
@@ -254,7 +211,6 @@ function defineMapService (divContainer,basemap,globalLayer){
 
 
         //DEFINE THE SLIDER
-        // createSliderUI(startTime,endTime);
         var sliderControl = L.control({ position: "bottomleft"});
         var startControl = L.control({ position: "topright"});
 
